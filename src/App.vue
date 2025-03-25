@@ -7,4 +7,11 @@
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.wrapper {
+  width: 900px;
+  height: 500px;
+  border-radius: 50px;
+  background-color: #1f0f24;
+}
+</style>

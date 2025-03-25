@@ -7,6 +7,7 @@
       <p>Узнать погоду в вашем городе</p>
     </div>
     <input class="wrapper__input" type="text" placeholder="Введите город" />
+    <button class="wrapper__button">Узнать погоду</button>
   </div>
 </template>
 
@@ -38,8 +39,27 @@
     background: transparent;
     color: #fcfcfc;
     font-size: 14px;
+
+    &:focus {
+      border-bottom-color: rgb(40, 200, 150);
+    }
   }
+
   &__button {
+    cursor: pointer;
+    margin-left: 20px;
+    padding: 8px 16px;
+    background-color: #fdbb2d;
+    color: #110813;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
+    &:active {
+      transform: translateY(-2px) scale(0.95);
+    }
   }
 }
 </style>

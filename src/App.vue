@@ -14,8 +14,13 @@
     <button disabled v-else class="wrapper__button">Введите город</button>
     <p class="wrapper__error">{{ error }}</p>
 
-    <div v-show="info != null" :info="info">
-      <p>{{ info.main.temp }}</p>
+    <div v-show="info != null">
+      <p>{{ info }}</p>
+      <p>{{ showTemp }}</p>
+      <p>{{ showTempFeelsLike }}</p>
+      <p>{{ showTempMin }}</p>
+      <p>{{ showTempMax }}</p>
+      <p>{{ showHumidity }}</p>
     </div>
   </div>
 </template>
@@ -34,6 +39,21 @@ export default {
   computed: {
     cityName() {
       return '«' + this.city + '»'
+    },
+    showTemp() {
+      return `Температура: ${this.info.main?.temp}`
+    },
+    showTempFeelsLike() {
+      return 'Ощущается как: ' + this.info.main?.feels_like
+    },
+    showTempMin() {
+      return 'Температура ночью до: ' + this.info.main?.temp_min
+    },
+    showTempMax() {
+      return 'Температура днём до: ' + this.info.main?.temp_max
+    },
+    showHumidity() {
+      return 'Влажность: ' + this.info.humidity
     },
   },
   methods: {

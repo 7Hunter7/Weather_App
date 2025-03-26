@@ -67,9 +67,35 @@ export default {
     },
     showWeatherDescription() {
       const description = this.info.weather?.[0]?.description
-      return description ? `Облачность: ${description}` : ''
+
+      if (!description) {
+        return ''
+      }
+      let translatedDescription
+      switch (description) {
+        case 'haze':
+          translatedDescription = 'легкий туман'
+          break
+        case 'overcast clouds':
+          translatedDescription = 'пасмурно'
+          break
+        case 'scattered clouds':
+          translatedDescription = 'малая облачность'
+          break
+        case 'few clouds':
+          translatedDescription = 'преимущественно ясно'
+          break
+        case 'clear sky':
+          translatedDescription = 'ясно'
+          break
+        default:
+          translatedDescription = description
+          break
+      }
+      return `Облачность: ${translatedDescription}`
     },
   },
+
   methods: {
     getWeather() {
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=394763d2bf7ba78dbbad7d96b024e452`

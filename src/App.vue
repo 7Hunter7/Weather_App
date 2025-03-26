@@ -4,8 +4,14 @@
       <h1>Погодное приложение</h1>
       <p>Узнать погоду в {{ city == '' ? 'вашем городе' : city }}</p>
     </div>
-    <input class="wrapper__input" type="text" v-model="city" placeholder="Введите город" />
-    <button class="wrapper__button">Узнать погоду</button>
+    <input
+      class="wrapper__input"
+      type="text"
+      v-model="city"
+      placeholder="Введите название города"
+    />
+    <button v-if="city != ''" class="wrapper__button">Узнать погоду</button>
+    <button disabled v-else class="wrapper__button">Введите город</button>
   </div>
 </template>
 
@@ -67,6 +73,10 @@ export default {
     }
     &:active {
       transform: translateY(-2px) scale(0.95);
+    }
+    &:disabled {
+      cursor: no-drop;
+      background-color: #9c7216;
     }
   }
 }

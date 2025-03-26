@@ -13,15 +13,20 @@
     <button v-if="city != ''" class="wrapper__button" @click="getWeather()">Узнать погоду</button>
     <button disabled v-else class="wrapper__button">Введите город</button>
     <p class="wrapper__error">{{ error }}</p>
+
+    <p v-show="info != null">{{ info }}</p>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   data() {
     return {
       city: '',
       error: '',
+      info: null,
     }
   },
   computed: {
@@ -31,11 +36,15 @@ export default {
   },
   methods: {
     getWeather() {
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=394763d2bf7ba78dbbad7d96b024e452`
+
       if (this.city.trim().length < 2) {
         this.error = 'Название города должно содержать более одного символа!'
         return
       }
       this.error = ''
+
+      axios.get(url).then((res) => (this.info = res))
     },
   },
 }

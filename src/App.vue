@@ -14,7 +14,9 @@
     <button disabled v-else class="wrapper__button">Введите город</button>
     <p class="wrapper__error">{{ error }}</p>
 
-    <p v-show="info != null">{{ info }}</p>
+    <div v-show="info != null" :info="info">
+      <p>{{ info.main.temp }}</p>
+    </div>
   </div>
 </template>
 
@@ -44,7 +46,7 @@ export default {
       }
       this.error = ''
 
-      axios.get(url).then((res) => (this.info = res))
+      axios.get(url).then((res) => (this.info = res.data))
     },
   },
 }

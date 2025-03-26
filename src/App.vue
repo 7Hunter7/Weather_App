@@ -1,15 +1,23 @@
-<script setup></script>
-
 <template>
   <div class="wrapper">
     <div class="wrapper__header">
       <h1>Погодное приложение</h1>
-      <p>Узнать погоду в вашем городе</p>
+      <p>Узнать погоду в {{ city == '' ? 'вашем городе' : city }}</p>
     </div>
-    <input class="wrapper__input" type="text" placeholder="Введите город" />
+    <input class="wrapper__input" type="text" v-model="city" placeholder="Введите город" />
     <button class="wrapper__button">Узнать погоду</button>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      city: '',
+    }
+  },
+}
+</script>
 
 <style scoped lang="scss">
 .wrapper {

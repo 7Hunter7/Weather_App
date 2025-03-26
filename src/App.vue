@@ -14,13 +14,14 @@
     <button disabled v-else class="wrapper__button">Введите город</button>
     <p class="wrapper__error">{{ error }}</p>
 
-    <div v-show="info != null">
-      <p>{{ info }}</p>
+    <div v-if="info != null" class="wrapper__info">
       <p>{{ showTemp }}</p>
       <p>{{ showTempFeelsLike }}</p>
       <p>{{ showTempMin }}</p>
       <p>{{ showTempMax }}</p>
       <p>{{ showHumidity }}</p>
+      <p>{{ showWindSpeed }}</p>
+      <p>{{ showWeatherDescription }}</p>
     </div>
   </div>
 </template>
@@ -41,19 +42,32 @@ export default {
       return '«' + this.city + '»'
     },
     showTemp() {
-      return `Температура: ${this.info.main?.temp}`
+      const temp = this.info.main?.temp
+      return `Температура: ${temp}℃`
     },
     showTempFeelsLike() {
-      return 'Ощущается как: ' + this.info.main?.feels_like
+      const feelsLike = this.info.main?.feels_like
+      return `Ощущается как: ${feelsLike}℃`
     },
     showTempMin() {
-      return 'Температура ночью до: ' + this.info.main?.temp_min
+      const tempMin = this.info.main?.temp_min
+      return `Минимальная температура: ${tempMin}℃`
     },
     showTempMax() {
-      return 'Температура днём до: ' + this.info.main?.temp_max
+      const tempMax = this.info.main?.temp_max
+      return `Максимальная температура: ${tempMax}℃`
     },
     showHumidity() {
-      return 'Влажность: ' + this.info.humidity
+      const humidity = this.info.main?.humidity
+      return `Влажность: ${humidity}%`
+    },
+    showWindSpeed() {
+      const windSpeed = this.info.wind?.speed
+      return `Скорость ветра до: ${windSpeed}м/с`
+    },
+    showWeatherDescription() {
+      const description = this.info.weather[0]?.description
+      return `Облачность: ${description}`
     },
   },
   methods: {
@@ -129,6 +143,12 @@ export default {
   &__error {
     margin-top: 20px;
     color: #d03939;
+  }
+  &__info {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 }
 </style>

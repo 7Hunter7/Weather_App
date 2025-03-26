@@ -114,9 +114,9 @@ export default {
 
 <style scoped lang="scss">
 .wrapper {
-  width: 900px;
-  height: 500px;
-  border-radius: 50px;
+  min-width: 800px;
+  min-height: 420px;
+  border-radius: 40px;
   padding: 20px;
   background-color: #1f0f24;
   text-align: center;
@@ -124,7 +124,7 @@ export default {
 
   &__header {
     & h1 {
-      margin-top: 50px;
+      margin-top: 40px;
     }
     & p {
       margin-top: 20px;
@@ -177,6 +177,7 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-bottom: 40px;
   }
 }
 </style>

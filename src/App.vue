@@ -10,7 +10,7 @@
       v-model.trim="city"
       placeholder="Введите название города"
       @keydown.enter="getWeather()"
-      @keydown.esc="info = 'null'"
+      @keydown.esc="clearInput()"
     />
     <button v-if="city != ''" class="wrapper__button" @click="getWeather()">Узнать погоду</button>
     <button disabled v-else class="wrapper__button">Введите город</button>
@@ -100,6 +100,13 @@ export default {
           }
           this.info = null // Сбрасываем info при ошибке
         })
+    },
+
+    clearInput() {
+      // Очищаем данные
+      this.city = ''
+      this.error = ''
+      this.info = null
     },
   },
 }

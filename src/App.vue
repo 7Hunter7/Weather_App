@@ -71,28 +71,25 @@ export default {
       if (!description) {
         return ''
       }
-      let translatedDescription
-      switch (description) {
-        case 'haze':
-          translatedDescription = 'легкий туман'
-          break
-        case 'overcast clouds':
-          translatedDescription = 'пасмурно'
-          break
-        case 'scattered clouds':
-          translatedDescription = 'малая облачность'
-          break
-        case 'few clouds':
-          translatedDescription = 'преимущественно ясно'
-          break
-        case 'clear sky':
-          translatedDescription = 'ясно'
-          break
-        default:
-          translatedDescription = description
-          break
+
+      const translations = {
+        haze: 'легкий туман',
+        'overcast clouds': 'пасмурно',
+        'scattered clouds': 'малая облачность',
+        'few clouds': 'преимущественно ясно',
+        'clear sky': 'ясно',
+        rain: 'дождь',
+        rainy: 'дождливо',
+        showers: 'кратковременные дожди',
+        'heavy rain': 'сильный дождь',
+        drizzle: 'мелкий дождь',
+        windy: 'ветренно',
+        breeze: 'бриз',
       }
-      return `Облачность: ${translatedDescription}`
+
+      const translatedDescription = translations[description] || description // Если нет перевода, оставляем оригинал
+
+      return `Погодные условия: ${translatedDescription}`
     },
   },
 

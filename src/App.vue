@@ -9,8 +9,10 @@
       type="text"
       v-model.trim="city"
       placeholder="Введите название города"
+      @keydown.enter="getWeather()"
+      @keydown.esc="info = 'null'"
     />
-    <button v-if="city != ''" class="wrapper__button" @click="getWeather">Узнать погоду</button>
+    <button v-if="city != ''" class="wrapper__button" @click="getWeather()">Узнать погоду</button>
     <button disabled v-else class="wrapper__button">Введите город</button>
     <p class="wrapper__error">{{ error }}</p>
 

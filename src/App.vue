@@ -43,27 +43,27 @@ export default {
     },
     showTemp() {
       const temp = this.info.main?.temp
-      return `Температура: ${temp}℃`
+      return `Температура: ${temp.toFixed()}℃`
     },
     showTempFeelsLike() {
       const feelsLike = this.info.main?.feels_like
-      return `Ощущается как: ${feelsLike}℃`
+      return `Ощущается как: ${feelsLike.toFixed()}℃`
     },
     showTempMin() {
       const tempMin = this.info.main?.temp_min
-      return `Минимальная температура: ${tempMin}℃`
+      return `Минимальная температура: ${tempMin.toFixed()}℃`
     },
     showTempMax() {
       const tempMax = this.info.main?.temp_max
-      return `Максимальная температура: ${tempMax}℃`
+      return `Максимальная температура: ${tempMax.toFixed()}℃`
     },
     showHumidity() {
       const humidity = this.info.main?.humidity
-      return `Влажность: ${humidity}%`
+      return `Влажность воздуха: ${humidity.toFixed()}%`
     },
     showWindSpeed() {
       const windSpeed = this.info.wind?.speed
-      return `Скорость ветра до: ${windSpeed}м/с`
+      return `Скорость ветра до: ${windSpeed.toFixed(1)}м/с`
     },
     showWeatherDescription() {
       const description = this.info.weather[0]?.description

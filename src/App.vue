@@ -10,8 +10,9 @@
       v-model="city"
       placeholder="Введите название города"
     />
-    <button v-if="city != ''" class="wrapper__button">Узнать погоду</button>
+    <button v-if="city != ''" class="wrapper__button" @click="getWeather()">Узнать погоду</button>
     <button disabled v-else class="wrapper__button">Введите город</button>
+    <p class="wrapper__error">{{ error }}</p>
   </div>
 </template>
 
@@ -20,11 +21,21 @@ export default {
   data() {
     return {
       city: '',
+      error: '',
     }
   },
   computed: {
     cityName() {
       return '«' + this.city + '»'
+    },
+  },
+  methods: {
+    getWeather() {
+      if (this.city.trim().length < 2) {
+        this.error = 'Название города должно содержать более одного символа!'
+        return
+      }
+      this.error = ''
     },
   },
 }
@@ -83,6 +94,10 @@ export default {
       cursor: no-drop;
       background-color: #9c7216;
     }
+  }
+  &__error {
+    margin-top: 20px;
+    color: #d03939;
   }
 }
 </style>

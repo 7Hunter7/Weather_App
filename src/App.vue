@@ -7,7 +7,7 @@
     <input
       class="wrapper__input"
       type="text"
-      v-model="city"
+      v-model.trim="city"
       placeholder="Введите название города"
     />
     <button v-if="city != ''" class="wrapper__button" @click="getWeather">Узнать погоду</button>

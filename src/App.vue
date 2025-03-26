@@ -124,7 +124,7 @@ export default {
     cursor: pointer;
     margin-left: 20px;
     padding: 8px 16px;
-    color: #fff;
+    color: #1f0f24;
     background-color: #e3bc4b;
     border: 2px solid #b99935;
     border-radius: 8px;
@@ -138,6 +138,7 @@ export default {
     }
     &:disabled {
       cursor: no-drop;
+      color: #fff;
       background-color: #9c7216;
     }
   }

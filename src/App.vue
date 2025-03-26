@@ -17,7 +17,6 @@
     <div v-if="info != null" class="wrapper__info">
       <p>{{ showTemp }}</p>
       <p>{{ showTempFeelsLike }}</p>
-      <p>{{ showTempMin }}</p>
       <p>{{ showTempMax }}</p>
       <p>{{ showHumidity }}</p>
       <p>{{ showWindSpeed }}</p>
@@ -49,10 +48,6 @@ export default {
       const feelsLike = this.info.main?.feels_like
       return feelsLike ? `Ощущается как: ${feelsLike.toFixed(0)}℃` : ''
     },
-    showTempMin() {
-      const tempMin = this.info.main?.temp_min
-      return tempMin ? `Минимальная температура: ${tempMin.toFixed(0)}℃` : ''
-    },
     showTempMax() {
       const tempMax = this.info.main?.temp_max
       return tempMax ? `Максимальная температура: ${tempMax.toFixed(0)}℃` : ''
@@ -67,35 +62,13 @@ export default {
     },
     showWeatherDescription() {
       const description = this.info.weather?.[0]?.description
-
-      if (!description) {
-        return ''
-      }
-
-      const translations = {
-        haze: 'легкий туман',
-        'overcast clouds': 'пасмурно',
-        'scattered clouds': 'малая облачность',
-        'few clouds': 'преимущественно ясно',
-        'clear sky': 'ясно',
-        rain: 'дождь',
-        rainy: 'дождливо',
-        showers: 'кратковременные дожди',
-        'heavy rain': 'сильный дождь',
-        drizzle: 'мелкий дождь',
-        windy: 'ветренно',
-        breeze: 'бриз',
-      }
-
-      const translatedDescription = translations[description] || description // Если нет перевода, оставляем оригинал
-
-      return `Погодные условия: ${translatedDescription}`
+      return description ? `Облачность: ${description}` : ''
     },
   },
 
   methods: {
     getWeather() {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=394763d2bf7ba78dbbad7d96b024e452`
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&lang=ru&appid=394763d2bf7ba78dbbad7d96b024e452`
 
       if (this.city.trim().length < 2) {
         this.error = 'Название города должно содержать более одного символа!'

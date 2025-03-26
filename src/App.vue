@@ -76,11 +76,32 @@ export default {
 
       if (this.city.trim().length < 2) {
         this.error = 'Название города должно содержать более одного символа!'
+        this.info = null // Сбрасываем info при ошибке
         return
       }
+      // Очищаем предыдущие данные
       this.error = ''
+      this.info = null
 
-      axios.get(url).then((res) => (this.info = res.data))
+      axios
+        .get(url)
+        .then((response) => {
+          this.info = response.data
+        })
+        .catch((error) => {
+          if (error.response) {
+            if (error.response.status === 404) {
+              this.error = 'Вы ввели неверное название города!'
+            } else {
+              this.error = `Произошла ошибка: ${error.response.status}`
+            }
+          } else if (error.request) {
+            this.error = 'Ошибка при отправке запроса. Проверьте подключение к интернету.'
+          } else {
+            this.error = 'Произошла ошибка при получении данных.'
+          }
+          this.info = null // Сбрасываем info при ошибке
+        })
     },
   },
 }

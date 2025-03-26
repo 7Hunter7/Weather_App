@@ -109,14 +109,14 @@ export default {
     margin-top: 30px;
     padding: 5px 10px;
     border: none;
-    outline: none;
+    outline: none; // Удаляем обводку у input
     border-bottom: 2px solid #110813;
     background: transparent;
     color: #fcfcfc;
     font-size: 14px;
 
     &:focus {
-      border-bottom-color: rgb(40, 200, 150);
+      border-bottom-color: #6e2d7d;
     }
   }
 
@@ -124,16 +124,17 @@ export default {
     cursor: pointer;
     margin-left: 20px;
     padding: 8px 16px;
-    background-color: #fdbb2d;
-    color: #110813;
-    border-radius: 10px;
-    transition: transform 0.3s ease-in-out;
+    color: #fff;
+    background-color: #e3bc4b;
+    border: 2px solid #b99935;
+    border-radius: 8px;
+    transition: transform 0.2s ease;
 
     &:hover {
       transform: translateY(-2px);
     }
     &:active {
-      transform: translateY(-2px) scale(0.95);
+      transform: translateY(-2px) scale(0.97);
     }
     &:disabled {
       cursor: no-drop;

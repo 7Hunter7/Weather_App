@@ -64,7 +64,7 @@ export default {
     },
     showWeatherDescription() {
       const description = this.info.weather?.[0]?.description
-      return description ? `Облачность: ${description}` : ''
+      return description ? `Погодные условия: ${description}` : ''
     },
   },
 

@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="wrapper__header">
       <h1>Погодное приложение</h1>
-      <p>Узнать погоду в {{ city == '' ? 'вашем городе' : city }}</p>
+      <p>Узнать погоду в {{ city == '' ? 'вашем городе' : cityName }}</p>
     </div>
     <input
       class="wrapper__input"
@@ -21,6 +21,11 @@ export default {
     return {
       city: '',
     }
+  },
+  computed: {
+    cityName() {
+      return '«' + this.city + '»'
+    },
   },
 }
 </script>

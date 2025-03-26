@@ -10,7 +10,7 @@
       v-model="city"
       placeholder="Введите название города"
     />
-    <button v-if="city != ''" class="wrapper__button" @click="getWeather()">Узнать погоду</button>
+    <button v-if="city != ''" class="wrapper__button" @click="getWeather">Узнать погоду</button>
     <button disabled v-else class="wrapper__button">Введите город</button>
     <p class="wrapper__error">{{ error }}</p>
 
@@ -43,31 +43,31 @@ export default {
     },
     showTemp() {
       const temp = this.info.main?.temp
-      return `Температура: ${temp.toFixed()}℃`
+      return temp ? `Температура: ${temp.toFixed(0)}℃` : ''
     },
     showTempFeelsLike() {
       const feelsLike = this.info.main?.feels_like
-      return `Ощущается как: ${feelsLike.toFixed()}℃`
+      return feelsLike ? `Ощущается как: ${feelsLike.toFixed(0)}℃` : ''
     },
     showTempMin() {
       const tempMin = this.info.main?.temp_min
-      return `Минимальная температура: ${tempMin.toFixed()}℃`
+      return tempMin ? `Минимальная температура: ${tempMin.toFixed(0)}℃` : ''
     },
     showTempMax() {
       const tempMax = this.info.main?.temp_max
-      return `Максимальная температура: ${tempMax.toFixed()}℃`
+      return tempMax ? `Максимальная температура: ${tempMax.toFixed(0)}℃` : ''
     },
     showHumidity() {
       const humidity = this.info.main?.humidity
-      return `Влажность воздуха: ${humidity.toFixed()}%`
+      return humidity ? `Влажность воздуха: ${humidity.toFixed(0)}%` : ''
     },
     showWindSpeed() {
       const windSpeed = this.info.wind?.speed
-      return `Скорость ветра до: ${windSpeed.toFixed(1)}м/с`
+      return windSpeed ? `Скорость ветра до: ${windSpeed.toFixed(1)}м/с` : ''
     },
     showWeatherDescription() {
-      const description = this.info.weather[0]?.description
-      return `Облачность: ${description}`
+      const description = this.info.weather?.[0]?.description
+      return description ? `Облачность: ${description}` : ''
     },
   },
   methods: {

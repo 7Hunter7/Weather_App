@@ -99,8 +99,8 @@ const updateWeather = () => {
     outline: none; // Удаляем обводку у input
     border-bottom: 2px solid #110813;
     background: transparent;
-    color: #fcfcfc;
-    font-size: 14px;
+    color: var(--input-color);
+    font-size: var(--font-size-input);
 
     &:focus {
       border-bottom-color: var(--loading-color);

@@ -4,6 +4,7 @@
   /* Переменные */
   --background-color: #1f0f24;
   --text-color: rgb(40, 200, 150);
+  --input-color: #fcfcfc;
   --accent-color: #e3bc4b;
   --border-color: #b99935;
   --error-color: #d03939;
@@ -11,6 +12,7 @@
 
   --font-family-primary: 'Oswald', sans-serif;
   --font-size-base: 16px;
+  --font-size-input: 14px;
 }
 
 * {

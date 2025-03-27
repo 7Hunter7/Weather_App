@@ -20,10 +20,7 @@
       Узнать погоду
     </button>
     <p class="wrapper__error">{{ error }}</p>
-
     <div v-if="isLoading" class="wrapper__loading">Загрузка...</div>
-    <!-- Уведомление -->
-    <div v-if="showNotification" class="wrapper__notification">Погода обновлена!</div>
 
     <WeatherCard v-if="weatherData != null" :weather="weatherData" />
 
@@ -36,19 +33,31 @@
       Обновить
     </button>
   </div>
+
+  <Notification
+    v-if="notification.show"
+    :message="notification.message"
+    :type="notification.type"
+  />
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import WeatherCard from '@/components/WeatherCard.vue'
+import Notification from '@/components/Notification.vue'
 import { useWeatherApi } from '@/services/useWeatherApi'
 import { removeCachedData } from '@/utils/cacheUtils'
 
 const city = ref('')
 const cityName = computed(() => '«' + city.value + '»')
-const showNotification = ref(false)
 const { weatherData, error, isLoading, getWeather } = useWeatherApi() // Используем service useWeatherApi
+const notification = reactive({
+  message: '',
+  type: '',
+  show: false,
+})
 
+// Получение погоды
 const handleGetWeather = () => {
   if (city.value.trim().length < 2) {
     error.value = 'Название города должно содержать более одного символа!'
@@ -58,20 +67,29 @@ const handleGetWeather = () => {
   getWeather(city.value)
 }
 
+// Обновление погоды
+const updateWeather = () => {
+  removeCachedData(city.value) // Очищаем кэш
+  getWeather(city.value) // Запрашиваем новые данные
+  showNotification()
+}
+
+// Очистка данных
 const clearInput = () => {
   city.value = ''
   error.value = ''
   weatherData.value = null
 }
 
-const updateWeather = () => {
-  removeCachedData(city.value) // Очищаем кэш
-  getWeather(city.value) // Запрашиваем новые данные
-  showNotification.value = true // Показываем уведомление
+// Управление уведомлениями
+const showNotification = (message, type = 'info') => {
+  notification.value.message = message
+  notification.value.type = type
+  notification.value.show = true
 
   setTimeout(() => {
-    showNotification.value = false // Скрываем уведомление через 3 секунды
-  }, 3000)
+    notification.value.show = false
+  }, 3000) // Автоматическое скрытие через 3 секунды
 }
 </script>
 

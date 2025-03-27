@@ -19,55 +19,20 @@
     <p class="wrapper__error">{{ error }}</p>
 
     <div v-if="isLoading" class="wrapper__loading">Загрузка...</div>
-    <!-- Индикатор загрузки -->
 
-    <div v-if="weatherData != null" class="wrapper__info">
-      <p>{{ showTemp }}</p>
-      <p>{{ showTempFeelsLike }}</p>
-      <p>{{ showTempMax }}</p>
-      <p>{{ showHumidity }}</p>
-      <p>{{ showWindSpeed }}</p>
-      <p>{{ showWeatherDescription }}</p>
-    </div>
+    <WeatherCard v-if="weatherData != null" :weather="weatherData" />
   </div>
 </template>
 
 <script setup>
 import { useWeatherApi } from '@/services/useWeatherApi.js'
 import { ref, computed } from 'vue'
+import WeatherCard from '@/components/WeatherCard.vue'
 
 const city = ref('')
 const { weatherData, error, isLoading, getWeather } = useWeatherApi() // Используем service useWeatherApi
 
 const cityName = computed(() => '«' + city.value + '»')
-const showTemp = computed(() =>
-  weatherData.value?.main?.temp ? `Температура: ${weatherData.value.main.temp.toFixed(0)}℃` : '',
-)
-const showTempFeelsLike = computed(() =>
-  weatherData.value?.main?.feels_like
-    ? `Ощущается как: ${weatherData.value.main.feels_like.toFixed(0)}℃`
-    : '',
-)
-const showTempMax = computed(() =>
-  weatherData.value?.main?.temp_max
-    ? `Максимальная температура: ${weatherData.value.main.temp_max.toFixed(0)}℃`
-    : '',
-)
-const showHumidity = computed(() =>
-  weatherData.value?.main?.humidity
-    ? `Влажность воздуха: ${weatherData.value.main.humidity.toFixed(0)}%`
-    : '',
-)
-const showWindSpeed = computed(() =>
-  weatherData.value?.wind?.speed
-    ? `Скорость ветра до: ${weatherData.value.wind.speed.toFixed(1)} м/с`
-    : '',
-)
-const showWeatherDescription = computed(() =>
-  weatherData.value?.weather?.[0]?.description
-    ? `Погодные условия: ${weatherData.value.weather[0].description}`
-    : '',
-)
 
 const handleGetWeather = () => {
   if (city.value.trim().length < 2) {
@@ -145,19 +110,12 @@ const clearInput = () => {
     margin-top: 20px;
     color: #d03939;
   }
-  &__info {
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 40px;
-  }
 
   // Стиль для индикатора загрузки
   &__loading {
     margin-top: 20px;
     font-style: italic;
-    color: #aaa;
+    color: #6e2d7d;
   }
 }
 </style>

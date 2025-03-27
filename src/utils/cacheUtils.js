@@ -1,11 +1,9 @@
-import { getCurrentInstance } from 'vue'
-
 // Функции для работы с кэшем
 const WEATHER_CACHE_KEY = 'weatherCache' // Ключ для хранения в localStorage
 const CACHE_EXPIRATION_TIME = 60 * 60 * 1000 // 1 час (в миллисекундах)
 
 // Функция получения данных из localStorage
-export function getCachedData(city) {
+export function getCachedData(city, showNotification) {
   const cache = localStorage.getItem(WEATHER_CACHE_KEY)
   if (!cache) {
     return null
@@ -19,19 +17,18 @@ export function getCachedData(city) {
       return cachedItem
     } else {
       // Если кэш устарел, удаляем его из localStorage
-      removeCachedData(city)
+      removeCachedData(city, showNotification)
       return null
     }
   } catch (error) {
     // Уведомление
-    const instance = getCurrentInstance()
-    instance?.proxy.showNotification(`Ошибка при разборе данных из кэша: ${error}`, 'error')
+    showNotification(`Ошибка при разборе данных из кэша: ${error}`, 'error')
     return null
   }
 }
 
 // Функция для сохранения данных в кэш
-export function cacheData(city, data) {
+export function cacheData(city, data, showNotification) {
   const cache = localStorage.getItem(WEATHER_CACHE_KEY)
   let cacheData = cache ? JSON.parse(cache) : {}
 
@@ -42,12 +39,11 @@ export function cacheData(city, data) {
 
   localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify(cacheData))
   // Уведомление
-  const instance = getCurrentInstance()
-  instance?.proxy.showNotification(`Данные для города ${city} сохранены в кэш.`, 'success')
+  showNotification(`Данные для города ${city} сохранены в кэш.`, 'success')
 }
 
 // Функция для удаления данных из кэша (если устарели)
-export function removeCachedData(city) {
+export function removeCachedData(city, showNotification) {
   const cache = localStorage.getItem(WEATHER_CACHE_KEY)
   if (!cache) {
     return
@@ -58,11 +54,9 @@ export function removeCachedData(city) {
     delete cacheData[city]
     localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify(cacheData))
     // Уведомление
-    const instance = getCurrentInstance()
-    instance?.proxy.showNotification(`Кэш для города ${city} удален.`, 'info')
+    showNotification(`Кэш для города ${city} удален.`, 'info')
   } catch (error) {
     // Уведомление
-    const instance = getCurrentInstance()
-    instance?.proxy.showNotification('Ошибка при удалении данных из кэша!', 'error')
+    showNotification(`Ошибка при удалении данных из кэша: ${error}`, 'error')
   }
 }

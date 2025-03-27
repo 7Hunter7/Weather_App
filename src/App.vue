@@ -77,10 +77,10 @@ const updateWeather = () => {
 
 <style scoped lang="scss">
 .wrapper {
-  min-width: 800px;
-  min-height: 420px;
-  border-radius: 40px;
-  padding: 20px;
+  min-width: var(--wrapper-min-width);
+  min-height: var(--wrapper-min-height);
+  border-radius: var(--border-radius-large);
+  padding: var(--indents-medium);
   background-color: var(--background-color);
   text-align: center;
   color: var(--text-color);
@@ -88,16 +88,16 @@ const updateWeather = () => {
 
   &__header {
     & h1 {
-      margin-top: 40px;
+      margin-top: var(--indents-biggest);
     }
     & p {
-      margin-top: 20px;
+      margin-top: var(--indents-medium);
     }
   }
 
   &__input {
-    margin-top: 30px;
-    padding: 5px 10px;
+    margin-top: var(--indents-big);
+    padding: var(--indents-little) var(--indents-small);
     border: none;
     outline: none; // Удаляем обводку у input
     border-bottom: 2px solid #110813;
@@ -112,12 +112,12 @@ const updateWeather = () => {
 
   &__button {
     cursor: pointer;
-    margin-left: 20px;
-    padding: 8px 16px;
+    margin-left: var(--indents-medium);
+    padding: var(--indents-small) var(--indents-medium);
     color: var(--background-color);
     background-color: var(--accent-color);
     border: 2px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: var(--border-radius-small);
     transition: transform 0.2s ease;
 
     &:hover {
@@ -133,25 +133,25 @@ const updateWeather = () => {
     }
   }
   &__error {
-    margin-top: 20px;
+    margin-top: var(--indents-medium);
     color: var(--error-color);
   }
 
   // Стиль для индикатора загрузки
   &__loading {
-    margin-top: 20px;
+    margin-top: var(--indents-medium);
     font-style: italic;
     color: var(--loading-color);
   }
 
   &__notification {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: var(--indents-medium);
+    right: var(--indents-medium);
     background-color: transparent;
     color: var(--text-color);
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: var(--indents-small) var(--indents-medium);
+    border-radius: var(--border-radius-small);
     opacity: 0.9;
     z-index: 10;
   }

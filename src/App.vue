@@ -21,13 +21,19 @@
     <div v-if="isLoading" class="wrapper__loading">Загрузка...</div>
 
     <WeatherCard v-if="weatherData != null" :weather="weatherData" />
+
+    <!-- Кнопка для очистки кэша -->
+    <button v-if="weatherData != null && city != ''" class="wrapper__button" @click="clearCache()">
+      Очистить кэш
+    </button>
   </div>
 </template>
 
 <script setup>
-import { useWeatherApi } from '@/services/useWeatherApi.js'
 import { ref, computed } from 'vue'
 import WeatherCard from '@/components/WeatherCard.vue'
+import { useWeatherApi } from '@/services/useWeatherApi'
+import { removeCachedData } from '@/utils/cacheUtils'
 
 const city = ref('')
 const { weatherData, error, isLoading, getWeather } = useWeatherApi() // Используем service useWeatherApi
@@ -47,6 +53,11 @@ const clearInput = () => {
   city.value = ''
   error.value = ''
   weatherData.value = null
+}
+
+const clearCache = () => {
+  removeCachedData(city.value)
+  getWeather(city.value) // Перезапросить данные
 }
 </script>
 

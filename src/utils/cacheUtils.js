@@ -1,3 +1,5 @@
+import { getCurrentInstance } from 'vue'
+
 // Функции для работы с кэшем
 const WEATHER_CACHE_KEY = 'weatherCache' // Ключ для хранения в localStorage
 const CACHE_EXPIRATION_TIME = 60 * 60 * 1000 // 1 час (в миллисекундах)
@@ -21,7 +23,9 @@ export function getCachedData(city) {
       return null
     }
   } catch (error) {
-    console.error('Ошибка при разборе данных из кэша:', error)
+    // Уведомление
+    const instance = getCurrentInstance()
+    instance?.proxy.showNotification(`Ошибка при разборе данных из кэша: ${error}`, 'error')
     return null
   }
 }
@@ -37,7 +41,9 @@ export function cacheData(city, data) {
   }
 
   localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify(cacheData))
-  console.log(`Данные для города ${city} сохранены в кэш.`)
+  // Уведомление
+  const instance = getCurrentInstance()
+  instance?.proxy.showNotification(`Данные для города ${city} сохранены в кэш.`, 'success')
 }
 
 // Функция для удаления данных из кэша (если устарели)
@@ -51,8 +57,12 @@ export function removeCachedData(city) {
     const cacheData = JSON.parse(cache)
     delete cacheData[city]
     localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify(cacheData))
-    console.log(`Кэш для города ${city} удален.`)
+    // Уведомление
+    const instance = getCurrentInstance()
+    instance?.proxy.showNotification(`Кэш для города ${city} удален.`, 'info')
   } catch (error) {
-    console.error('Ошибка при удалении данных из кэша:', error)
+    // Уведомление
+    const instance = getCurrentInstance()
+    instance?.proxy.showNotification('Ошибка при удалении данных из кэша!', 'error')
   }
 }

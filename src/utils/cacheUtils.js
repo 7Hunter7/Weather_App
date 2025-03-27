@@ -25,3 +25,17 @@ export function getCachedData(city) {
     return null
   }
 }
+
+// Функция для сохранения данных в кэш
+export function cacheData(city, data) {
+  const cache = localStorage.getItem(WEATHER_CACHE_KEY)
+  let cacheData = cache ? JSON.parse(cache) : {}
+
+  cacheData[city] = {
+    data,
+    expirationTime: Date.now() + CACHE_EXPIRATION_TIME,
+  }
+
+  localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify(cacheData))
+  console.log(`Данные для города ${city} сохранены в кэш.`)
+}

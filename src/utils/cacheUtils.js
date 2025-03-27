@@ -12,7 +12,7 @@ export function getCachedData(city) {
   try {
     const cacheData = JSON.parse(cache)
     const cachedItem = cacheData[city]
-
+    // Проверяем, есть ли в кэше данные для запрошенного города
     if (cachedItem && Date.now() < cachedItem.expirationTime) {
       return cachedItem
     } else {

@@ -22,9 +22,9 @@
 
     <WeatherCard v-if="weatherData != null" :weather="weatherData" />
 
-    <!-- Кнопка для очистки кэша -->
+    <!-- Кнопка для очистки кэша и обновления данных -->
     <button v-if="weatherData != null && city != ''" class="wrapper__button" @click="clearCache()">
-      Очистить кэш
+      Обновить
     </button>
   </div>
 </template>
@@ -57,7 +57,7 @@ const clearInput = () => {
 
 const clearCache = () => {
   removeCachedData(city.value)
-  getWeather(city.value) // Перезапросить данные
+  getWeather(city.value) // Обновить данные
 }
 </script>
 

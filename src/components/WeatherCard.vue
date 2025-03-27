@@ -24,16 +24,14 @@ defineProps({
 
 <style scoped lang="scss">
 .weather-card {
-  margin-top: 40px;
+  margin: 40px;
   padding: 15px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  text-align: left;
   color: rgb(40, 200, 150);
   background-color: #1f0f24;
   border: 2px solid #b99935;
-  border-radius: 8px;
-  margin-bottom: 40px;
+  border-radius: 16px;
 }
 </style>

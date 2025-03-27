@@ -50,7 +50,7 @@ import { removeCachedData } from '@/utils/cacheUtils'
 
 const city = ref('')
 const cityName = computed(() => '«' + city.value + '»')
-const { weatherData, error, isLoading, getWeather } = useWeatherApi() // Используем service useWeatherApi
+const { weatherData, error, isLoading, getWeather } = useWeatherApi(showNotification) // Используем service useWeatherApi и передаем в неё showNotification
 const notification = reactive({
   message: '',
   type: '',

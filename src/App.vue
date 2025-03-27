@@ -19,11 +19,17 @@
     <p class="wrapper__error">{{ error }}</p>
 
     <div v-if="isLoading" class="wrapper__loading">Загрузка...</div>
+    <!-- Уведомление -->
+    <div v-if="showNotification" class="wrapper__notification">Погода обновлена!</div>
 
     <WeatherCard v-if="weatherData != null" :weather="weatherData" />
 
     <!-- Кнопка для очистки кэша и обновления данных -->
-    <button v-if="weatherData != null && city != ''" class="wrapper__button" @click="clearCache()">
+    <button
+      v-if="weatherData != null && city != ''"
+      class="wrapper__button"
+      @click="updateWeather()"
+    >
       Обновить
     </button>
   </div>
@@ -36,9 +42,9 @@ import { useWeatherApi } from '@/services/useWeatherApi'
 import { removeCachedData } from '@/utils/cacheUtils'
 
 const city = ref('')
-const { weatherData, error, isLoading, getWeather } = useWeatherApi() // Используем service useWeatherApi
-
 const cityName = computed(() => '«' + city.value + '»')
+const showNotification = ref(false)
+const { weatherData, error, isLoading, getWeather } = useWeatherApi() // Используем service useWeatherApi
 
 const handleGetWeather = () => {
   if (city.value.trim().length < 2) {
@@ -55,9 +61,14 @@ const clearInput = () => {
   weatherData.value = null
 }
 
-const clearCache = () => {
-  removeCachedData(city.value)
-  getWeather(city.value) // Обновить данные
+const updateWeather = () => {
+  removeCachedData(city.value) // Очищаем кэш
+  getWeather(city.value) // Запрашиваем новые данные
+  showNotification.value = true // Показываем уведомление
+
+  setTimeout(() => {
+    showNotification.value = false // Скрываем уведомление через 3 секунды
+  }, 3000)
 }
 </script>
 
@@ -127,6 +138,18 @@ const clearCache = () => {
     margin-top: 20px;
     font-style: italic;
     color: #6e2d7d;
+  }
+
+  &__notification {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+    color: #6e2d7d;
+    padding: 10px 20px;
+    border-radius: 5px;
+    opacity: 0.9;
+    z-index: 10;
   }
 }
 </style>

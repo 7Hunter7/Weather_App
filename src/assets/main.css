@@ -13,8 +13,24 @@
   --disabled-background-color: #9c7216;
 
   --font-family-primary: 'Oswald', sans-serif;
-  --font-size-base: 16px;
+  --font-size-base: 16px; /* 1rem */
   --font-size-input: 14px;
+
+  /* Размеры контейнера */
+  --wrapper-min-width: 50rem; /* 800px */
+  --wrapper-min-height: 26.25rem; /* 420px */
+
+  /* Закругление углов */
+  --border-radius-small: 0.5rem;
+  --border-radius-medium: 1rem;
+  --border-radius-large: 2rem;
+
+  /* Отступы */
+  --indents-little: 0.3125rem; /* 5px */
+  --indents-small: 0.625rem; /* 10px */
+  --indents-medium: 1.25rem; /* 20px */
+  --indents-big: 1.875rem; /* 30px */
+  --indents-biggest: 2.5rem; /* 40px */
 }
 
 * {

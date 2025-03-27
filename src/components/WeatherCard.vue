@@ -29,9 +29,9 @@ defineProps({
   display: flex;
   flex-direction: column;
   gap: 10px;
-  color: rgb(40, 200, 150);
-  background-color: #1f0f24;
-  border: 2px solid #b99935;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  border: 2px solid var(--border-color);
   border-radius: 16px;
 }
 </style>

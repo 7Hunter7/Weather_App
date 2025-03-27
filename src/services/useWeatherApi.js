@@ -10,7 +10,8 @@ export function useWeatherApi() {
   console.log(`apiKey: ${apiKey}`)
 
   const getWeather = async (city) => {
-    weatherData.value = null // Сбрасываем данные перед новым запросом
+    // Сбрасываем данные перед новым запросом
+    weatherData.value = null
     error.value = ''
     isLoading.value = true
 
@@ -19,16 +20,16 @@ export function useWeatherApi() {
 
       const response = await axios.get(url)
       weatherData.value = response.data
-    } catch (error) {
+    } catch (err) {
       let errorMessage = 'Произошла ошибка при получении данных.' // Сообщение по умолчанию
 
-      if (error.response) {
-        if (error.response.status === 404) {
+      if (err.response) {
+        if (err.response.status === 404) {
           errorMessage = 'Вы ввели неверное название города!'
         } else {
-          errorMessage = `Произошла ошибка: ${error.response.status}`
+          errorMessage = `Произошла ошибка: ${err.response.status}`
         }
-      } else if (error.request) {
+      } else if (err.request) {
         errorMessage = 'Ошибка при отправке запроса. Проверьте подключение к интернету.'
       }
 

@@ -9,14 +9,19 @@
       type="text"
       v-model.trim="city"
       placeholder="Введите название города"
-      @keydown.enter="getWeather()"
+      @keydown.enter="handleGetWeather()"
       @keydown.esc="clearInput()"
     />
-    <button v-if="city != ''" class="wrapper__button" @click="getWeather()">Узнать погоду</button>
+    <button v-if="city != ''" class="wrapper__button" @click="handleGetWeather()">
+      Узнать погоду
+    </button>
     <button disabled v-else class="wrapper__button">Введите город</button>
     <p class="wrapper__error">{{ error }}</p>
 
-    <div v-if="info != null" class="wrapper__info">
+    <div v-if="isLoading" class="wrapper__loading">Загрузка...</div>
+    <!-- Индикатор загрузки -->
+
+    <div v-if="weatherData != null" class="wrapper__info">
       <p>{{ showTemp }}</p>
       <p>{{ showTempFeelsLike }}</p>
       <p>{{ showTempMax }}</p>
@@ -27,88 +32,56 @@
   </div>
 </template>
 
-<script>
-import axios from 'axios'
+<script setup>
+import { useWeatherApi } from '@/services/useWeatherApi.js'
+import { ref, computed } from 'vue'
 
-export default {
-  data() {
-    return {
-      city: '',
-      error: '',
-      info: null,
-    }
-  },
-  computed: {
-    cityName() {
-      return '«' + this.city + '»'
-    },
-    showTemp() {
-      const temp = this.info.main?.temp
-      return temp ? `Температура: ${temp.toFixed(0)}℃` : ''
-    },
-    showTempFeelsLike() {
-      const feelsLike = this.info.main?.feels_like
-      return feelsLike ? `Ощущается как: ${feelsLike.toFixed(0)}℃` : ''
-    },
-    showTempMax() {
-      const tempMax = this.info.main?.temp_max
-      return tempMax ? `Максимальная температура: ${tempMax.toFixed(0)}℃` : ''
-    },
-    showHumidity() {
-      const humidity = this.info.main?.humidity
-      return humidity ? `Влажность воздуха: ${humidity.toFixed(0)}%` : ''
-    },
-    showWindSpeed() {
-      const windSpeed = this.info.wind?.speed
-      return windSpeed ? `Скорость ветра до: ${windSpeed.toFixed(1)}м/с` : ''
-    },
-    showWeatherDescription() {
-      const description = this.info.weather?.[0]?.description
-      return description ? `Погодные условия: ${description}` : ''
-    },
-  },
+const city = ref('')
+const { weatherData, error, isLoading, getWeather } = useWeatherApi() // Используем service useWeatherApi
 
-  methods: {
-    getWeather() {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&lang=ru&appid=394763d2bf7ba78dbbad7d96b024e452`
+const cityName = computed(() => '«' + city.value + '»')
+const showTemp = computed(() =>
+  weatherData.value?.main?.temp ? `Температура: ${weatherData.value.main.temp.toFixed(0)}℃` : '',
+)
+const showTempFeelsLike = computed(() =>
+  weatherData.value?.main?.feels_like
+    ? `Ощущается как: ${weatherData.value.main.feels_like.toFixed(0)}℃`
+    : '',
+)
+const showTempMax = computed(() =>
+  weatherData.value?.main?.temp_max
+    ? `Максимальная температура: ${weatherData.value.main.temp_max.toFixed(0)}℃`
+    : '',
+)
+const showHumidity = computed(() =>
+  weatherData.value?.main?.humidity
+    ? `Влажность воздуха: ${weatherData.value.main.humidity.toFixed(0)}%`
+    : '',
+)
+const showWindSpeed = computed(() =>
+  weatherData.value?.wind?.speed
+    ? `Скорость ветра до: ${weatherData.value.wind.speed.toFixed(1)} м/с`
+    : '',
+)
+const showWeatherDescription = computed(() =>
+  weatherData.value?.weather?.[0]?.description
+    ? `Погодные условия: ${weatherData.value.weather[0].description}`
+    : '',
+)
 
-      if (this.city.trim().length < 2) {
-        this.error = 'Название города должно содержать более одного символа!'
-        this.info = null // Сбрасываем info при ошибке
-        return
-      }
-      // Очищаем предыдущие данные
-      this.error = ''
-      this.info = null
+const handleGetWeather = () => {
+  if (city.value.trim().length < 2) {
+    error.value = 'Название города должно содержать более одного символа!'
+    weatherData.value = null
+    return
+  }
+  getWeather(city.value)
+}
 
-      axios
-        .get(url)
-        .then((response) => {
-          this.info = response.data
-        })
-        .catch((error) => {
-          if (error.response) {
-            if (error.response.status === 404) {
-              this.error = 'Вы ввели неверное название города!'
-            } else {
-              this.error = `Произошла ошибка: ${error.response.status}`
-            }
-          } else if (error.request) {
-            this.error = 'Ошибка при отправке запроса. Проверьте подключение к интернету.'
-          } else {
-            this.error = 'Произошла ошибка при получении данных.'
-          }
-          this.info = null // Сбрасываем info при ошибке
-        })
-    },
-
-    clearInput() {
-      // Очищаем данные
-      this.city = ''
-      this.error = ''
-      this.info = null
-    },
-  },
+const clearInput = () => {
+  city.value = ''
+  error.value = ''
+  weatherData.value = null
 }
 </script>
 
@@ -178,6 +151,13 @@ export default {
     flex-direction: column;
     gap: 10px;
     margin-bottom: 40px;
+  }
+
+  // Стиль для индикатора загрузки
+  &__loading {
+    margin-top: 20px;
+    font-style: italic;
+    color: #aaa;
   }
 }
 </style>

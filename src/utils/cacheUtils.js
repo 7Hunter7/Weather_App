@@ -39,3 +39,20 @@ export function cacheData(city, data) {
   localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify(cacheData))
   console.log(`Данные для города ${city} сохранены в кэш.`)
 }
+
+// Функция для удаления данных из кэша (если устарели)
+export function removeCachedData(city) {
+  const cache = localStorage.getItem(WEATHER_CACHE_KEY)
+  if (!cache) {
+    return
+  }
+
+  try {
+    const cacheData = JSON.parse(cache)
+    delete cacheData[city]
+    localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify(cacheData))
+    console.log(`Кэш для города ${city} удален.`)
+  } catch (error) {
+    console.error('Ошибка при удалении данных из кэша:', error)
+  }
+}

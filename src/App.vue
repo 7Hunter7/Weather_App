@@ -12,10 +12,13 @@
       @keydown.enter="handleGetWeather()"
       @keydown.esc="clearInput()"
     />
-    <button v-if="city != ''" class="wrapper__button" @click="handleGetWeather()">
+    <button
+      class="wrapper__button"
+      @click="handleGetWeather()"
+      :class="{ 'wrapper__button--disabled': city === '' }"
+    >
       Узнать погоду
     </button>
-    <button disabled v-else class="wrapper__button">Введите город</button>
     <p class="wrapper__error">{{ error }}</p>
 
     <div v-if="isLoading" class="wrapper__loading">Загрузка...</div>
@@ -123,10 +126,10 @@ const updateWeather = () => {
     &:active {
       transform: translateY(-2px) scale(0.97);
     }
-    &:disabled {
-      cursor: no-drop;
-      color: #fff;
-      background-color: #9c7216;
+    &--disabled {
+      cursor: not-allowed;
+      color: var(--disabled-text-color);
+      background-color: var(--disabled-background-color);
     }
   }
   &__error {

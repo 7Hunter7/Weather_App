@@ -1,14 +1,30 @@
+:root {
+  /* Переменные */
+  --background-color: #1f0f24;
+  --text-color: rgb(40, 200, 150);
+  --accent-color: #e3bc4b;
+  --border-color: #b99935;
+  --error-color: #d03939;
+  --loading-color: #6e2d7d;
+
+  --font-family-primary: sans-serif;
+  --font-size-base: 16px;
+}
+
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 body {
   width: 100%;
   min-height: 100vh;
-  background: rgb(34, 193, 195);
-  background: linear-gradient(339deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  color: var(--text-color); /* Для глобального цвета текста */
+  background: linear-gradient(339deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
 }

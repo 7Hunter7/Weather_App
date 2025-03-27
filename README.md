@@ -29,8 +29,8 @@
 ├── src/
 │ ├── components/
 │ │ └── WeatherCard.vue # Компонент для отображения информации о погоде
-│ ├── composables/
-│ │ └── useWeatherApi.js # Composable для работы с API OpenWeatherMap
+│ ├── services/
+│ │ └── useWeatherApi.js # Service для работы с API OpenWeatherMap
 │ ├── utils/
 │ │ └── cacheUtils.js # Утилиты для работы с кэшем localStorage
 │ ├── App.vue # Главный компонент приложения

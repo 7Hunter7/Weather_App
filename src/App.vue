@@ -81,6 +81,7 @@ const updateWeather = () => {
   background-color: #1f0f24;
   text-align: center;
   color: rgb(40, 200, 150);
+  position: relative;
 
   &__header {
     & h1 {
@@ -145,7 +146,7 @@ const updateWeather = () => {
     top: 20px;
     right: 20px;
     background-color: transparent;
-    color: #6e2d7d;
+    color: rgb(40, 200, 150);
     padding: 10px 20px;
     border-radius: 5px;
     opacity: 0.9;

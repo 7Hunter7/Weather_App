@@ -1,14 +1,13 @@
 import axios from 'axios'
-import { ref, getCurrentInstance } from 'vue'
+import { ref } from 'vue'
 import { getCachedData, cacheData } from '../utils/cacheUtils' // Импорт утилит
 
 // Логика работы с API
-export function useWeatherApi() {
+export function useWeatherApi(showNotification) {
   const weatherData = ref(null)
   const error = ref('')
   const isLoading = ref(false) // Индикатор загрузки
   const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY // Используем переменную окружения
-  const instance = getCurrentInstance()
 
   const getWeather = async (city) => {
     // Сбрасываем данные перед новым запросом
@@ -47,7 +46,7 @@ export function useWeatherApi() {
         errorMessage = 'Ошибка при отправке запроса. Проверьте подключение к интернету.'
       }
 
-      instance?.proxy.showNotification(errorMessage, 'error') // Используем функцию уведомлений
+      showNotification(errorMessage, 'error') // Используем переданную функцию
       error.value = errorMessage // Устанавливаем сообщение об ошибке
       weatherData.value = null // Сбрасываем данные
     } finally {

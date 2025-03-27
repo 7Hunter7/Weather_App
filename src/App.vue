@@ -78,9 +78,9 @@ const updateWeather = () => {
   min-height: 420px;
   border-radius: 40px;
   padding: 20px;
-  background-color: #1f0f24;
+  background-color: var(--background-color);
   text-align: center;
-  color: rgb(40, 200, 150);
+  color: var(--text-color);
   position: relative;
 
   &__header {
@@ -103,7 +103,7 @@ const updateWeather = () => {
     font-size: 14px;
 
     &:focus {
-      border-bottom-color: #6e2d7d;
+      border-bottom-color: var(--loading-color);
     }
   }
 
@@ -111,9 +111,9 @@ const updateWeather = () => {
     cursor: pointer;
     margin-left: 20px;
     padding: 8px 16px;
-    color: #1f0f24;
-    background-color: #e3bc4b;
-    border: 2px solid #b99935;
+    color: var(--background-color);
+    background-color: var(--accent-color);
+    border: 2px solid var(--border-color);
     border-radius: 8px;
     transition: transform 0.2s ease;
 
@@ -131,14 +131,14 @@ const updateWeather = () => {
   }
   &__error {
     margin-top: 20px;
-    color: #d03939;
+    color: var(--error-color);
   }
 
   // Стиль для индикатора загрузки
   &__loading {
     margin-top: 20px;
     font-style: italic;
-    color: #6e2d7d;
+    color: var(--loading-color);
   }
 
   &__notification {
@@ -146,7 +146,7 @@ const updateWeather = () => {
     top: 20px;
     right: 20px;
     background-color: transparent;
-    color: rgb(40, 200, 150);
+    color: var(--text-color);
     padding: 10px 20px;
     border-radius: 5px;
     opacity: 0.9;

@@ -22,7 +22,7 @@ export function getCachedData(city, showNotification) {
     }
   } catch (error) {
     // Уведомление
-    showNotification(`Ошибка при разборе данных из кэша: ${error}`, 'error')
+    showNotification(`Ошибка при загрузке данных: ${error}`, 'error')
     return null
   }
 }
@@ -31,15 +31,17 @@ export function getCachedData(city, showNotification) {
 export function cacheData(city, data, showNotification) {
   const cache = localStorage.getItem(WEATHER_CACHE_KEY)
   let cacheData = cache ? JSON.parse(cache) : {}
-
-  cacheData[city] = {
-    data,
-    expirationTime: Date.now() + CACHE_EXPIRATION_TIME,
+  try {
+    cacheData[city] = {
+      data,
+      expirationTime: Date.now() + CACHE_EXPIRATION_TIME,
+    }
+    localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify(cacheData))
+    showNotification(`Данные для города ${city} успешно сохранены в кэш`, 'success')
+  } catch (error) {
+    // Уведомление
+    showNotification(`Ошибка при сохранении данных в кэш: ${error}`, 'error')
   }
-
-  localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify(cacheData))
-  // Уведомление
-  showNotification(`Данные для города ${city} сохранены в кэш.`, 'success')
 }
 
 // Функция для удаления данных из кэша (если устарели)
@@ -54,9 +56,9 @@ export function removeCachedData(city, showNotification) {
     delete cacheData[city]
     localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify(cacheData))
     // Уведомление
-    showNotification(`Кэш для города ${city} удален.`, 'info')
+    showNotification(`Погода для города ${city} успешно удалена`, 'info')
   } catch (error) {
     // Уведомление
-    showNotification(`Ошибка при удалении данных из кэша: ${error}`, 'error')
+    showNotification(`Ошибка при удалении данных: ${error}`, 'error')
   }
 }

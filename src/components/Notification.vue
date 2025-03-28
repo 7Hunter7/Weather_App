@@ -30,21 +30,27 @@ defineProps({
   z-index: 100;
 
   &.info {
-    background-color: var(--background-color);
-    border: 1px solid var(--border-color);
+    background-color: var(--notification-info-bg);
+    color: var(--notification-info-text);
+    border: 1px solid darken(--notification-info-bg, 10%);
   }
 
   &.success {
-    background-color: var(--text-color);
+    background-color: var(--notification-success-bg);
+    color: var(--notification-success-text);
+    border: 1px solid darken(--notification-success-bg, 10%);
   }
 
   &.warning {
-    background-color: var(--accent-color);
-    color: var(--background-color);
+    background-color: var(--notification-warning-bg);
+    color: var(--notification-warning-text);
+    border: 1px solid darken(--notification-warning-bg, 10%);
   }
 
   &.error {
-    background-color: var(--error-color);
+    background-color: var(--notification-error-bg);
+    color: var(--notification-error-text);
+    border: 1px solid darken(--notification-error-bg, 10%);
   }
 }
 </style>

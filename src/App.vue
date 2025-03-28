@@ -28,7 +28,7 @@
     <button
       v-if="weatherData != null && city != ''"
       class="wrapper__button"
-      @click="updateWeather()"
+      @click="handleUpdateWeather()"
     >
       Обновить
     </button>
@@ -49,13 +49,25 @@ import { useWeatherApi } from '@/services/useWeatherApi'
 
 const city = ref('')
 const cityName = computed(() => '«' + city.value + '»')
-const { weatherData, error, isLoading, getWeather, updateWeather } = useWeatherApi(showNotification) // Используем service useWeatherApi и передаем в неё showNotification
-
 const notification = reactive({
   message: '',
   type: '',
   show: false,
 })
+
+// Управление уведомлениями
+const showNotification = (message, type = 'info') => {
+  notification.value.message = message
+  notification.value.type = type
+  notification.value.show = true
+
+  setTimeout(() => {
+    notification.value.show = false
+  }, 3000) // Автоматическое скрытие через 3 секунды
+}
+
+// Используем service useWeatherApi и передаем в неё showNotification
+const { weatherData, error, isLoading, getWeather, updateWeather } = useWeatherApi(showNotification)
 
 // Получение погоды
 const handleGetWeather = () => {
@@ -68,7 +80,7 @@ const handleGetWeather = () => {
 }
 
 // Обновление погоды
-const updateWeather = () => {
+const handleUpdateWeather = () => {
   updateWeather(city.value) // Очищаем кэш для введенного города
   showNotification('Погода обновлена!', 'success')
 }
@@ -78,17 +90,6 @@ const clearInput = () => {
   city.value = ''
   error.value = ''
   weatherData.value = null
-}
-
-// Управление уведомлениями
-const showNotification = (message, type = 'info') => {
-  notification.value.message = message
-  notification.value.type = type
-  notification.value.show = true
-
-  setTimeout(() => {
-    notification.value.show = false
-  }, 3000) // Автоматическое скрытие через 3 секунды
 }
 </script>
 

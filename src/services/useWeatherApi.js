@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { ref } from 'vue'
-import { getCachedData, cacheData } from '../utils/cacheUtils' // Импорт утилит
+import { getCachedData, cacheData, removeCachedData } from '@/utils/cacheUtils' // Импорт утилит
 
 // Логика работы с API
 export function useWeatherApi(showNotification) {
@@ -54,10 +54,16 @@ export function useWeatherApi(showNotification) {
     }
   }
 
+  const updateWeather = (city) => {
+    removeCachedData(city, showNotification)
+    getWeather(city)
+  }
+
   return {
     weatherData,
     error,
     isLoading,
     getWeather,
+    updateWeather,
   }
 }

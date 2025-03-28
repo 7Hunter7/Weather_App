@@ -49,7 +49,7 @@ import { useWeatherApi } from '@/services/useWeatherApi'
 
 const city = ref('')
 const cityName = computed(() => '«' + city.value + '»')
-const notification = reactive({
+const notification = ref({
   message: '',
   type: '',
   show: false,

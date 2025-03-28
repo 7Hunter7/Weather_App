@@ -18,7 +18,7 @@ export function useWeatherApi(showNotification) {
     // 1. Проверка кэша
     const cachedData = getCachedData(city, showNotification)
     if (cachedData) {
-      console.log(`Данные для города ${city} взяты из кэша.`)
+      showNotification(`Данные для города ${city} взяты из кэша.`, 'info')
       weatherData.value = cachedData.data
       isLoading.value = false
       return // Выходим из функции, если данные взяты из кэша

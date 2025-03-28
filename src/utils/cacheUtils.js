@@ -37,7 +37,6 @@ export function cacheData(city, data, showNotification) {
       expirationTime: Date.now() + CACHE_EXPIRATION_TIME,
     }
     localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify(cacheData))
-    showNotification(`Данные для города ${city} успешно сохранены в кэш`, 'success')
   } catch (error) {
     // Уведомление
     showNotification(`Ошибка при сохранении данных в кэш: ${error}`, 'error')

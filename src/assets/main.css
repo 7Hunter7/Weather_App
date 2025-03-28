@@ -21,12 +21,16 @@
   /* Цвета уведомлений */
   --notification-info-bg: #e7f3ff;
   --notification-info-text: #0056b3;
+  --notification-info-border: rgba(0, 86, 179, 0.3);
   --notification-success-bg: #d4edda;
   --notification-success-text: #155724;
+  --notification-success-border: rgba(21, 87, 36, 0.3);
   --notification-warning-bg: #fff3cd;
   --notification-warning-text: #856404;
+  --notification-warning-border: rgba(133, 100, 4, 0.3);
   --notification-error-bg: #f8d7da;
   --notification-error-text: #721c24;
+  --notification-error-border: rgba(114, 28, 36, 0.3);
 
   /* Размеры контейнера */
   --wrapper-min-width: 50rem; /* 800px */

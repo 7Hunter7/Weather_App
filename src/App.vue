@@ -46,11 +46,11 @@ import { ref, computed, reactive } from 'vue'
 import WeatherCard from '@/components/WeatherCard.vue'
 import Notification from '@/components/Notification.vue'
 import { useWeatherApi } from '@/services/useWeatherApi'
-import { removeCachedData } from '@/utils/cacheUtils'
 
 const city = ref('')
 const cityName = computed(() => '«' + city.value + '»')
-const { weatherData, error, isLoading, getWeather } = useWeatherApi(showNotification) // Используем service useWeatherApi и передаем в неё showNotification
+const { weatherData, error, isLoading, getWeather, updateWeather } = useWeatherApi(showNotification) // Используем service useWeatherApi и передаем в неё showNotification
+
 const notification = reactive({
   message: '',
   type: '',
@@ -69,9 +69,8 @@ const handleGetWeather = () => {
 
 // Обновление погоды
 const updateWeather = () => {
-  removeCachedData(city.value) // Очищаем кэш
-  getWeather(city.value) // Запрашиваем новые данные
-  showNotification()
+  updateWeather(city.value) // Очищаем кэш для введенного города
+  showNotification('Погода обновлена!', 'success')
 }
 
 // Очистка данных

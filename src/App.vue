@@ -21,7 +21,9 @@
     </button>
     <p class="wrapper__error">{{ error }}</p>
     <div v-if="isLoading" class="wrapper__loading">Загрузка...</div>
-
+    <button class="wrapper__button" @click="handleGetWeatherByGeolocation()">
+      Определить мое местоположение
+    </button>
     <WeatherCard v-if="weatherData != null" :weather="weatherData" />
 
     <!-- Кнопка для очистки кэша и обновления данных -->
@@ -67,7 +69,8 @@ const showNotification = (message, type = 'info') => {
 }
 
 // Используем service useWeatherApi и передаем в неё showNotification
-const { weatherData, error, isLoading, getWeather, updateWeather } = useWeatherApi(showNotification)
+const { weatherData, error, isLoading, getWeather, getWeatherByGeolocation, updateWeather } =
+  useWeatherApi(showNotification)
 
 // Получение погоды
 const handleGetWeather = () => {
@@ -77,6 +80,12 @@ const handleGetWeather = () => {
     return
   }
   getWeather(city.value)
+}
+
+// Получение погоды по геопозиции пользователя
+const handleGetWeatherByGeolocation = () => {
+  getWeatherByGeolocation()
+  city.value = '' // Очистка поля ввода для города, чтобы не было конфликтов
 }
 
 // Обновление погоды

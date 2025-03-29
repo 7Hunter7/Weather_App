@@ -49,8 +49,13 @@ const props = defineProps({
   },
 })
 
-const temperatureUnit = computed(() => (props.units === 'metric' ? '℃' : '℉'))
-const windSpeedUnit = computed(() => (props.units === 'metric' ? 'м/с' : 'mph'))
+const temperatureUnit = computed(() => {
+  return props.units === 'metric' ? t('celsius') : t('fahrenheit')
+})
+const windSpeedUnit = computed(() => {
+  return props.units === 'metric' ? t('metersPerSecond') : t('milesPerHour')
+})
+
 const rainUnit = computed(() => (props.units === 'metric' ? 'мм/ч' : 'mm/h'))
 const grndLevelUnit = computed(() => (props.units === 'metric' ? 'мм рт.ст.' : 'hPa'))
 

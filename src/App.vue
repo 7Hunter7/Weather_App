@@ -40,7 +40,12 @@
     >
       {{ $t('detectLocation') }}
     </button>
-    <WeatherCard v-if="weatherData != null" :weather="weatherData" :units="units" />
+    <WeatherCard
+      v-if="weatherData != null"
+      :weather="weatherData"
+      :units="units"
+      :language="language"
+    />
 
     <!-- Кнопка для очистки кэша и обновления данных -->
     <button

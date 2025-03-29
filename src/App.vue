@@ -48,6 +48,7 @@ import { ref, computed } from 'vue'
 import WeatherCard from '@/components/WeatherCard.vue'
 import SystemNotification from '@/components/SystemNotification.vue'
 import { useWeatherApi } from '@/services/useWeatherApi'
+import { removeCachedData } from '@/utils/cacheUtils'
 
 const city = ref('')
 const cityName = computed(() => '«' + city.value + '»')
@@ -84,13 +85,15 @@ const handleGetWeather = () => {
 
 // Получение погоды по геопозиции пользователя
 const handleGetWeatherByGeolocation = () => {
+  removeCachedData('geolocation', showNotification)
   getWeatherByGeolocation()
   city.value = '' // Очистка поля ввода для города, чтобы не было конфликтов
 }
 
 // Обновление погоды
 const handleUpdateWeather = () => {
-  updateWeather(city.value) // Очищаем кэш для введенного города
+  updateWeather(city.value) // Очистка кэша для введенного города
+  removeCachedData('geolocation', showNotification) // Очистка данных о геолокации
   showNotification(`Погода для города «${city.value}» обновлена`, 'success')
 }
 

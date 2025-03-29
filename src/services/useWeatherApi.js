@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import {
   getCachedCityData,
   cacheCityData,
@@ -10,6 +11,8 @@ import {
 
 // Логика работы с API
 export function useWeatherApi(showNotification, language = 'ru', units = 'metric') {
+  const { t } = useI18n({ useScope: 'global' }) // Используем useI18n
+
   const weatherData = ref(null)
   const error = ref('')
   const isLoading = ref(false) // Индикатор загрузки
@@ -17,10 +20,10 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
 
   const getWeather = async (city) => {
     // 1. Проверка кэша
-    const cacheKey = `${city}-${language.value}-${units.value}`
+    const cacheKey = `${city}-${language}-${units}`
     const cachedData = getCachedCityData(cacheKey, showNotification)
     if (cachedData) {
-      showNotification(`Погода для города «${city}» успешно загружена`, 'success')
+      showNotification(t('weatherLoaded', { city }), 'success')
       weatherData.value = cachedData
       isLoading.value = false
       return // Выходим из функции, если данные взяты из кэша
@@ -36,38 +39,37 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
 
       // 3. Обработка ошибок
     } catch (err) {
-      let errorMessage = 'Произошла ошибка при получении данных.' // Сообщение по умолчанию
+      let errorMessage = t('genericError') // Сообщение по умолчанию
       if (err.response) {
         if (err.response.status === 404) {
-          errorMessage = 'Вы ввели неверное название города! Проверьте и попробуйте еще раз'
+          errorMessage = t('cityNotFound')
         } else {
-          errorMessage = `Произошла ошибка: ${err.response.status}`
+          errorMessage = t('serverError', { status: err.response.status })
         }
       } else if (err.request) {
-        errorMessage = 'Ошибка при отправке запроса. Проверьте подключение к интернету.'
+        errorMessage = t('networkError')
       }
 
       showNotification(errorMessage, 'error') // Используем переданную функцию
       error.value = errorMessage // Устанавливаем сообщение об ошибке
-      weatherData.value = null // Сбрасываем данные
     } finally {
       isLoading.value = false
     }
   }
 
   const updateWeather = (city) => {
-    const cacheKey = `${city}-${language.value}-${units.value}`
+    const cacheKey = `${city}-${language}-${units}`
     removeCachedCityData(cacheKey, showNotification)
     getWeather(city)
   }
 
   const getWeatherByGeolocation = async () => {
     // 1. Проверка кэша геолокации
-    const cacheKey = `geolocation-${language.value}-${units.value}`
+    const cacheKey = `geolocation-${language}-${units}`
     const cachedData = getCachedGeolocationData(showNotification)
     if (cachedData) {
       weatherData.value = cachedData
-      showNotification('Погода для вашего местоположения успешно загружена', 'success')
+      showNotification(t('geolocationWeatherLoaded'), 'success')
       isLoading.value = false
       return
     }
@@ -84,11 +86,11 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
 
       // 2. Кэширование данных геолокации
       cacheGeolocationData(cacheKey, response.data, showNotification)
-      showNotification(`Погода для вашего местоположения успешно загружена`, 'success')
+      showNotification(t('geolocationWeatherLoaded'), 'success')
     } catch (err) {
-      let errorMessage = 'Не удалось определить ваше местоположение'
+      let errorMessage = t('geolocationError')
       if (err.code === 1) {
-        errorMessage = 'Вы отклонили запрос на определение местоположения'
+        errorMessage = t('geolocationPermissionDenied')
       }
       showNotification(errorMessage, 'error')
       error.value = errorMessage

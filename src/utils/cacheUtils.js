@@ -30,21 +30,30 @@ export function removeCachedCityData(city, showNotification) {
 
 // --- Общие функции ---
 // Функция получения данных из localStorage
-export function getCachedData(city, showNotification) {
-  const cache = localStorage.getItem(WEATHER_CACHE_KEY)
+function getCachedData(cacheKey, showNotification, specificKey = null) {
+  const cache = localStorage.getItem(cacheKey)
+
   if (!cache) {
     return null
   }
 
   try {
     const cacheData = JSON.parse(cache)
-    const cachedItem = cacheData[city]
+    let cachedItem = cacheData
+
+    if (specificKey) {
+      cachedItem = cacheData[specificKey]
+    }
     // Проверяем, есть ли в кэше данные для запрошенного города
     if (cachedItem && Date.now() < cachedItem.expirationTime) {
-      return cachedItem
+      return cachedItem.data
     } else {
-      // Если кэш устарел, удаляем его из localStorage
-      removeCachedData(city, showNotification)
+      if (specificKey) {
+        // Если кэш устарел, удаляем его из localStorage
+        removeCachedData(cacheKey, showNotification, specificKey)
+      } else {
+        localStorage.removeItem(cacheKey) // Очищаем весь кэш геолокации, если он устарел
+      }
       return null
     }
   } catch (error) {
@@ -55,34 +64,54 @@ export function getCachedData(city, showNotification) {
 }
 
 // Функция для сохранения данных в кэш
-export function cacheData(city, data, showNotification) {
-  const cache = localStorage.getItem(WEATHER_CACHE_KEY)
-  let cacheData = cache ? JSON.parse(cache) : {}
-  try {
-    cacheData[city] = {
-      data,
-      expirationTime: Date.now() + CACHE_EXPIRATION_TIME,
+function cacheData(cacheKey, data, showNotification, specificKey = null) {
+  let cacheData = {}
+  const cache = localStorage.getItem(cacheKey)
+
+  if (cache) {
+    try {
+      cacheData = JSON.parse(cache)
+    } catch (error) {
+      showNotification(`Ошибка разбора кэша: ${error}`, 'error')
     }
-    localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify(cacheData))
+  }
+
+  let itemToCache = {
+    data,
+    expirationTime: Date.now() + CACHE_EXPIRATION_TIME,
+  }
+
+  if (specificKey) {
+    cacheData[specificKey] = itemToCache
+  } else {
+    cacheData = itemToCache
+  }
+
+  try {
+    localStorage.setItem(cacheKey, JSON.stringify(cacheData))
   } catch (error) {
-    // Уведомление
     showNotification(`Ошибка при сохранении данных в кэш: ${error}`, 'error')
   }
 }
 
 // Функция для удаления данных из кэша (если устарели)
-export function removeCachedData(city, showNotification) {
-  const cache = localStorage.getItem(WEATHER_CACHE_KEY)
+function removeCachedData(cacheKey, showNotification, specificKey = null) {
+  const cache = localStorage.getItem(cacheKey)
+
   if (!cache) {
     return
   }
 
   try {
     const cacheData = JSON.parse(cache)
-    delete cacheData[city]
-    localStorage.setItem(WEATHER_CACHE_KEY, JSON.stringify(cacheData))
+
+    if (specificKey) {
+      delete cacheData[specificKey]
+      localStorage.setItem(cacheKey, JSON.stringify(cacheData))
+    } else {
+      localStorage.removeItem(cacheKey)
+    }
   } catch (error) {
-    // Уведомление
     showNotification(`Ошибка при удалении данных из кэша: ${error}`, 'error')
   }
 }

@@ -1,7 +1,34 @@
 // Функции для работы с кэшем
-const WEATHER_CACHE_KEY = 'weatherCache' // Ключ для хранения в localStorage
+
+// Ключи для хранения в localStorage
+const WEATHER_CACHE_KEY = 'weatherCache'
+const GEOLOCATION_CACHE_KEY = 'geolocationCache'
+
 const CACHE_EXPIRATION_TIME = 60 * 60 * 1000 // 1 час (в миллисекундах)
 
+// --- Геолокация ---
+export function getCachedGeolocationData(showNotification) {
+  return getCachedData(GEOLOCATION_CACHE_KEY, showNotification)
+}
+export function cacheGeolocationData(data, showNotification) {
+  cacheData(GEOLOCATION_CACHE_KEY, data, showNotification)
+}
+export function removeCachedGeolocationData(showNotification) {
+  removeCachedData(GEOLOCATION_CACHE_KEY, showNotification)
+}
+
+// --- Город ---
+export function getCachedCityData(city, showNotification) {
+  return getCachedData(WEATHER_CACHE_KEY, showNotification, city)
+}
+export function cacheCityData(city, data, showNotification) {
+  cacheData(WEATHER_CACHE_KEY, data, showNotification, city)
+}
+export function removeCachedCityData(city, showNotification) {
+  removeCachedData(WEATHER_CACHE_KEY, showNotification, city)
+}
+
+// --- Общие функции ---
 // Функция получения данных из localStorage
 export function getCachedData(city, showNotification) {
   const cache = localStorage.getItem(WEATHER_CACHE_KEY)

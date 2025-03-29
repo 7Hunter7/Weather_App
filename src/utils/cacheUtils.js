@@ -1,5 +1,3 @@
-import { useI18n } from 'vue-i18n'
-
 // Ключи для хранения в localStorage
 const WEATHER_CACHE_KEY = 'weatherCache'
 const GEOLOCATION_CACHE_KEY = 'geolocationCache'
@@ -8,31 +6,30 @@ const CACHE_EXPIRATION_TIME = 60 * 60 * 1000 // 1 час (в миллисеку�
 
 // Функции для работы с кэшем
 // --- Геолокация ---
-export function getCachedGeolocationData(showNotification) {
-  return getCachedData(GEOLOCATION_CACHE_KEY, showNotification)
+export function getCachedGeolocationData(showNotification, t) {
+  return getCachedData(GEOLOCATION_CACHE_KEY, showNotification, t)
 }
-export function cacheGeolocationData(data, showNotification) {
-  cacheData(GEOLOCATION_CACHE_KEY, data, showNotification)
+export function cacheGeolocationData(data, showNotification, t) {
+  cacheData(GEOLOCATION_CACHE_KEY, data, showNotification, t)
 }
-export function removeCachedGeolocationData(showNotification, cacheKey) {
-  removeCachedData(GEOLOCATION_CACHE_KEY, showNotification, cacheKey)
+export function removeCachedGeolocationData(showNotification, t, cacheKey) {
+  removeCachedData(GEOLOCATION_CACHE_KEY, showNotification, t, cacheKey)
 }
 
 // --- Город ---
-export function getCachedCityData(city, showNotification) {
-  return getCachedData(WEATHER_CACHE_KEY, showNotification, city)
+export function getCachedCityData(city, showNotification, t) {
+  return getCachedData(WEATHER_CACHE_KEY, showNotification, city, t)
 }
-export function cacheCityData(city, data, showNotification) {
-  cacheData(WEATHER_CACHE_KEY, data, showNotification, city)
+export function cacheCityData(city, data, showNotification, t) {
+  cacheData(WEATHER_CACHE_KEY, data, showNotification, city, t)
 }
-export function removeCachedCityData(city, showNotification) {
-  removeCachedData(WEATHER_CACHE_KEY, showNotification, city)
+export function removeCachedCityData(city, showNotification, t) {
+  removeCachedData(WEATHER_CACHE_KEY, showNotification, city, t)
 }
 
 // --- Общие функции ---
 // Функция получения данных из localStorage
-function getCachedData(cacheKey, showNotification, specificKey = null) {
-  const { t } = useI18n({ useScope: 'global' })
+function getCachedData(cacheKey, showNotification, specificKey = null, t) {
   const cache = localStorage.getItem(cacheKey)
 
   if (!cache) {
@@ -52,7 +49,7 @@ function getCachedData(cacheKey, showNotification, specificKey = null) {
     } else {
       if (specificKey) {
         // Если кэш устарел, удаляем его из localStorage
-        removeCachedData(cacheKey, showNotification, specificKey)
+        removeCachedData(cacheKey, showNotification, specificKey, t)
       } else {
         localStorage.removeItem(cacheKey) // Очищаем весь кэш геолокации, если он устарел
       }
@@ -66,8 +63,7 @@ function getCachedData(cacheKey, showNotification, specificKey = null) {
 }
 
 // Функция для сохранения данных в кэш
-function cacheData(cacheKey, data, showNotification, specificKey = null) {
-  const { t } = useI18n({ useScope: 'global' })
+function cacheData(cacheKey, data, showNotification, specificKey = null, t) {
   let cacheData = {}
   const cache = localStorage.getItem(cacheKey)
 
@@ -99,8 +95,7 @@ function cacheData(cacheKey, data, showNotification, specificKey = null) {
 }
 
 // Функция для удаления данных из кэша (если устарели)
-function removeCachedData(cacheKey, showNotification, specificKey = null) {
-  const { t } = useI18n({ useScope: 'global' })
+function removeCachedData(cacheKey, showNotification, specificKey = null, t) {
   const cache = localStorage.getItem(cacheKey)
 
   if (!cache) {

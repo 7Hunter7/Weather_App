@@ -16,11 +16,6 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
   const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY // Используем переменную окружения
 
   const getWeather = async (city) => {
-    // Сбрасываем данные перед новым запросом
-    weatherData.value = null
-    error.value = ''
-    isLoading.value = true
-
     // 1. Проверка кэша
     const cacheKey = `${city}-${language.value}-${units.value}`
     const cachedData = getCachedCityData(cacheKey, showNotification)
@@ -67,10 +62,6 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
   }
 
   const getWeatherByGeolocation = async () => {
-    isLoading.value = true
-    error.value = ''
-    weatherData.value = null
-
     // 1. Проверка кэша геолокации
     const cacheKey = `geolocation-${language.value}-${units.value}`
     const cachedData = getCachedGeolocationData(showNotification)

@@ -1,6 +1,13 @@
 import axios from 'axios'
 import { ref } from 'vue'
-import { getCachedData, cacheData, removeCachedData } from '@/utils/cacheUtils' // Импорт утилит
+import {
+  getCachedCityData,
+  cacheCityData,
+  removeCachedCityData,
+  getCachedGeolocationData,
+  cacheGeolocationData,
+  removeCachedGeolocationData,
+} from '@/utils/cacheUtils' // Импорт утилит
 
 // Логика работы с API
 export function useWeatherApi(showNotification) {
@@ -16,10 +23,10 @@ export function useWeatherApi(showNotification) {
     isLoading.value = true
 
     // 1. Проверка кэша
-    const cachedData = getCachedData(city, showNotification)
+    const cachedData = getCachedCityData(city, showNotification)
     if (cachedData) {
       showNotification(`Погода для города «${city}» успешно загружена`, 'success')
-      weatherData.value = cachedData.data
+      weatherData.value = cachedData
       isLoading.value = false
       return // Выходим из функции, если данные взяты из кэша
     }
@@ -31,7 +38,7 @@ export function useWeatherApi(showNotification) {
       weatherData.value = response.data
 
       // 2. Сохранение данных в кэш
-      cacheData(city, response.data, showNotification)
+      cacheCityData(city, response.data, showNotification)
 
       // 3. Обработка ошибок
     } catch (err) {
@@ -55,7 +62,7 @@ export function useWeatherApi(showNotification) {
   }
 
   const updateWeather = (city) => {
-    removeCachedData(city, showNotification)
+    removeCachedCityData(city, showNotification)
     getWeather(city)
   }
 
@@ -63,6 +70,15 @@ export function useWeatherApi(showNotification) {
     isLoading.value = true
     error.value = ''
     weatherData.value = null
+
+    // 1. Проверка кэша геолокации
+    const cachedGeolocationData = getCachedGeolocationData(showNotification)
+    if (cachedGeolocationData) {
+      weatherData.value = cachedGeolocationData
+      showNotification('Погода для вашего местоположения успешно загружена', 'success')
+      isLoading.value = false
+      return
+    }
 
     try {
       const position = await new Promise((resolve, reject) => {
@@ -74,7 +90,9 @@ export function useWeatherApi(showNotification) {
 
       const response = await axios.get(url)
       weatherData.value = response.data
-      cacheData('geolocation', response.data, showNotification) // Кэшируем под ключом 'geolocation'
+
+      // 2. Кэширование данных геолокации
+      cacheGeolocationData(response.data, showNotification)
       showNotification(`Погода для вашего местоположения успешно загружена`, 'success')
     } catch (err) {
       let errorMessage = 'Не удалось определить ваше местоположение'

@@ -1,4 +1,4 @@
-// Функции для работы с кэшем
+import { useI18n } from 'vue-i18n'
 
 // Ключи для хранения в localStorage
 const WEATHER_CACHE_KEY = 'weatherCache'
@@ -6,6 +6,7 @@ const GEOLOCATION_CACHE_KEY = 'geolocationCache'
 
 const CACHE_EXPIRATION_TIME = 60 * 60 * 1000 // 1 час (в миллисекундах)
 
+// Функции для работы с кэшем
 // --- Геолокация ---
 export function getCachedGeolocationData(showNotification) {
   return getCachedData(GEOLOCATION_CACHE_KEY, showNotification)
@@ -31,6 +32,7 @@ export function removeCachedCityData(city, showNotification) {
 // --- Общие функции ---
 // Функция получения данных из localStorage
 function getCachedData(cacheKey, showNotification, specificKey = null) {
+  const { t } = useI18n({ useScope: 'global' })
   const cache = localStorage.getItem(cacheKey)
 
   if (!cache) {
@@ -58,13 +60,14 @@ function getCachedData(cacheKey, showNotification, specificKey = null) {
     }
   } catch (error) {
     // Уведомление
-    showNotification(`Ошибка при загрузке данных из кэша: ${error}`, 'error')
+    showNotification(t('cacheLoadError', { error }), 'error')
     return null
   }
 }
 
 // Функция для сохранения данных в кэш
 function cacheData(cacheKey, data, showNotification, specificKey = null) {
+  const { t } = useI18n({ useScope: 'global' })
   let cacheData = {}
   const cache = localStorage.getItem(cacheKey)
 
@@ -72,7 +75,8 @@ function cacheData(cacheKey, data, showNotification, specificKey = null) {
     try {
       cacheData = JSON.parse(cache)
     } catch (error) {
-      showNotification(`Ошибка разбора кэша: ${error}`, 'error')
+      console.error('Ошибка разбора кэша:', error)
+      showNotification(t('cacheParseError', { error }), 'error')
     }
   }
 
@@ -90,12 +94,13 @@ function cacheData(cacheKey, data, showNotification, specificKey = null) {
   try {
     localStorage.setItem(cacheKey, JSON.stringify(cacheData))
   } catch (error) {
-    showNotification(`Ошибка при сохранении данных в кэш: ${error}`, 'error')
+    showNotification(t('cacheSaveError', { error }), 'error')
   }
 }
 
 // Функция для удаления данных из кэша (если устарели)
 function removeCachedData(cacheKey, showNotification, specificKey = null) {
+  const { t } = useI18n({ useScope: 'global' })
   const cache = localStorage.getItem(cacheKey)
 
   if (!cache) {
@@ -116,6 +121,6 @@ function removeCachedData(cacheKey, showNotification, specificKey = null) {
       localStorage.removeItem(cacheKey)
     }
   } catch (error) {
-    showNotification(`Ошибка при удалении данных из кэша: ${error}`, 'error')
+    showNotification(t('cacheDeleteError', { error }), 'error')
   }
 }

@@ -33,6 +33,9 @@
 
 <script setup>
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n({ useScope: 'global' }) // Используем useI18n
 
 const props = defineProps({
   weather: {
@@ -70,7 +73,16 @@ const groundLevelPressureMmHg = computed(() => {
 const windDirection = computed(() => {
   if (props.weather.wind?.deg) {
     const degrees = props.weather.wind.deg
-    const directions = ['С', 'СВ', 'В', 'ЮВ', 'Ю', 'ЮЗ', 'З', 'СЗ']
+    const directions = [
+      t('directionN'),
+      t('directionNE'),
+      t('directionE'),
+      t('directionSE'),
+      t('directionS'),
+      t('directionSW'),
+      t('directionW'),
+      t('directionNW'),
+    ]
     const index = Math.round(degrees / 45) % 8
     return directions[index]
   }

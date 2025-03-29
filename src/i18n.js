@@ -39,6 +39,10 @@ const messages = {
     geolocationPermissionDenied: 'You rejected the request to determine your location',
     weatherLoaded: 'Weather for «{city}» successfully loaded',
     geolocationWeatherLoaded: 'Weather for your location successfully loaded from cache',
+    cacheLoadError: 'Error loading data from cache: {error}',
+    cacheSaveError: 'Error saving data to cache: {error}',
+    cacheDeleteError: 'Error deleting data from cache: {error}',
+    cacheParseError: 'Error parsing data from cache: {error}',
   },
   ru: {
     appTitle: 'Погодное приложение',
@@ -76,6 +80,10 @@ const messages = {
     geolocationPermissionDenied: 'Вы отклонили запрос на определение местоположения',
     weatherLoaded: `Погода для города «{city}» успешно загружена`,
     geolocationWeatherLoaded: 'Погода для вашего местоположения успешно загружена',
+    cacheLoadError: 'Ошибка при загрузке данных из кэша: {error}',
+    cacheSaveError: 'Ошибка при сохранении данных в кэш: {error}',
+    cacheDeleteError: 'Ошибка при удалении данных из кэша: {error}',
+    cacheParseError: 'Ошибка разбора данных из кэша: {error}',
   },
 }
 

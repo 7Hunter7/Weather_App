@@ -4,21 +4,33 @@
       <h1>Погодное приложение</h1>
       <p>Узнать погоду в {{ city == '' ? 'вашем городе' : cityName }}</p>
     </div>
-    <input
-      class="wrapper__input"
-      type="text"
-      v-model.trim="city"
-      placeholder="Введите название города"
-      @keydown.enter="handleGetWeather()"
-      @keydown.esc="clearInput()"
-    />
-    <button
-      class="wrapper__button"
-      @click="handleGetWeather()"
-      :class="{ 'wrapper__button--disabled': city === '' }"
-    >
-      Узнать погоду
-    </button>
+    <div class="wrapper__form">
+      <input
+        class="wrapper__form_input"
+        type="text"
+        v-model.trim="city"
+        placeholder="Введите название города"
+        @keydown.enter="handleGetWeather()"
+        @keydown.esc="clearInput()"
+      />
+      <button
+        class="wrapper__button"
+        @click="handleGetWeather()"
+        :class="{ 'wrapper__button--disabled': city === '' }"
+      >
+        Узнать погоду
+      </button>
+
+      <select v-model="language" class="wrapper__form_select">
+        <option value="ru">Русский</option>
+        <option value="en">Английский</option>
+      </select>
+
+      <select v-model="units" class="wrapper__form_select">
+        <option value="metric">Цельсий (°C)</option>
+        <option value="imperial">Фаренгейт (°F)</option>
+      </select>
+    </div>
     <p class="wrapper__error">{{ error }}</p>
     <div v-if="isLoading" class="wrapper__loading">Загрузка...</div>
     <button
@@ -128,19 +140,37 @@ const clearInput = () => {
       margin-top: var(--indents-medium);
     }
   }
+  &__form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 
-  &__input {
-    margin-top: var(--indents-big);
-    padding: var(--indents-little) var(--indents-small);
-    border: none;
-    outline: none; // Удаляем обводку у input
-    border-bottom: 2px solid #110813;
-    background: transparent;
-    color: var(--input-color);
-    font-size: var(--font-size-input);
+    &_input {
+      margin-top: var(--indents-big);
+      padding: var(--indents-little) var(--indents-small);
+      border: none;
+      outline: none; // Удаляем обводку у input
+      border-bottom: 2px solid #110813;
+      background: transparent;
+      color: var(--input-color);
+      font-size: var(--font-size-input);
 
-    &:focus {
-      border-bottom-color: var(--loading-color);
+      &:focus {
+        border-bottom-color: var(--loading-color);
+      }
+    }
+
+    &_select {
+      margin-top: var(--indents-big);
+      padding: var(--indents-little) var(--indents-small);
+      border: 2px solid var(--border-color);
+      border-radius: var(--border-radius-small);
+      background-color: var(--background-color);
+      color: var(--text-color);
+      outline: none;
+      cursor: pointer;
     }
   }
 
@@ -166,6 +196,7 @@ const clearInput = () => {
       background-color: var(--disabled-background-color);
     }
   }
+
   &__error {
     margin-top: var(--indents-medium);
     color: var(--error-color);

@@ -18,7 +18,7 @@ export function useWeatherApi(showNotification) {
     // 1. Проверка кэша
     const cachedData = getCachedData(city, showNotification)
     if (cachedData) {
-      showNotification(`Данные для города ${city} успешно загружены`, 'success')
+      showNotification(`Погода для города «${city}» успешно загружена`, 'success')
       weatherData.value = cachedData.data
       isLoading.value = false
       return // Выходим из функции, если данные взяты из кэша
@@ -38,7 +38,7 @@ export function useWeatherApi(showNotification) {
       let errorMessage = 'Произошла ошибка при получении данных.' // Сообщение по умолчанию
       if (err.response) {
         if (err.response.status === 404) {
-          errorMessage = 'Вы ввели неверное название города!'
+          errorMessage = 'Вы ввели неверное название города! Проверьте и попробуйте еще раз'
         } else {
           errorMessage = `Произошла ошибка: ${err.response.status}`
         }

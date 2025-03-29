@@ -82,7 +82,7 @@ const handleGetWeather = () => {
 // Обновление погоды
 const handleUpdateWeather = () => {
   updateWeather(city.value) // Очищаем кэш для введенного города
-  showNotification('Погода обновлена!', 'success')
+  showNotification(`Погода для города «${city.value}» обновлена`, 'success')
 }
 
 // Очистка данных

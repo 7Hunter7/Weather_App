@@ -1,30 +1,32 @@
 <template>
   <div class="weather-card">
     <p v-if="weather.main?.temp">
-      Температура: {{ weather.main.temp.toFixed(0) }}{{ temperatureUnit }}
+      {{ $t('temperature') }}: {{ weather.main.temp.toFixed(0) }}{{ temperatureUnit }}
     </p>
     <p v-if="weather.main?.feels_like">
-      Ощущается как: {{ weather.main.feels_like.toFixed(0) }}{{ temperatureUnit }}
+      {{ $t('feelsLike') }}: {{ weather.main.feels_like.toFixed(0) }}{{ temperatureUnit }}
     </p>
     <p v-if="weather.main?.temp_max">
-      Максимальная температура (сейчас): {{ weather.main.temp_max.toFixed(0) }}{{ temperatureUnit }}
+      {{ $t('maxTemperature') }}: {{ weather.main.temp_max.toFixed(0) }}{{ temperatureUnit }}
     </p>
-    <p v-if="weather.main?.humidity">Влажность воздуха: {{ weather.main.humidity.toFixed(0) }}%</p>
+    <p v-if="weather.main?.humidity">
+      {{ $t('humidity') }}: {{ weather.main.humidity.toFixed(0) }}%
+    </p>
     <p v-if="weather.wind?.speed">
-      Скорость ветра: {{ weather.wind.speed.toFixed(1) }} {{ windSpeedUnit }}
+      {{ $t('windSpeed') }}: {{ weather.wind.speed.toFixed(1) }} {{ windSpeedUnit }}
     </p>
     <p v-if="weather.wind?.gust">
-      Порывы ветра: до {{ weather.wind.gust.toFixed(1) }} {{ windSpeedUnit }}
+      {{ $t('windGust') }}: {{ weather.wind.gust.toFixed(1) }} {{ windSpeedUnit }}
     </p>
-    <p v-if="weather.wind?.deg">Направление ветра: {{ windDirection }}</p>
+    <p v-if="weather.wind?.deg">{{ $t('windDirection') }}: {{ windDirection }}</p>
     <p v-if="weather.rain?.['1h']">
-      Количество осадков(за 1 час): {{ weather.rain['1h'].toFixed(1) }}{{ rainUnit }}
+      {{ $t('precipitation') }}: {{ weather.rain['1h'].toFixed(1) }}{{ rainUnit }}
     </p>
     <p v-if="weather.main?.grnd_level">
-      Атмосферное давление: {{ groundLevelPressureMmHg }} {{ grndLevelUnit }}
+      {{ $t('groundPressure') }}: {{ groundLevelPressureMmHg }} {{ grndLevelUnit }}
     </p>
     <p v-if="weather.weather?.[0]?.description">
-      Погодные условия: {{ weather.weather[0].description }}
+      {{ $t('weatherConditions') }}: {{ weather.weather[0].description }}
     </p>
   </div>
 </template>

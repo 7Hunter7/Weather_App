@@ -40,7 +40,7 @@
     >
       Показать погоду в моём городе
     </button>
-    <WeatherCard v-if="weatherData != null" :weather="weatherData" />
+    <WeatherCard v-if="weatherData != null" :weather="weatherData" :units="units" />
 
     <!-- Кнопка для очистки кэша и обновления данных -->
     <button

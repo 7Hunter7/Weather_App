@@ -1,12 +1,18 @@
 <template>
   <div class="weather-card">
-    <p v-if="weather.main?.temp">Температура: {{ weather.main.temp.toFixed(0) }}℃</p>
-    <p v-if="weather.main?.feels_like">Ощущается как: {{ weather.main.feels_like.toFixed(0) }}℃</p>
+    <p v-if="weather.main?.temp">
+      Температура: {{ weather.main.temp.toFixed(0) }}{{ temperatureUnit }}
+    </p>
+    <p v-if="weather.main?.feels_like">
+      Ощущается как: {{ weather.main.feels_like.toFixed(0) }}{{ temperatureUnit }}
+    </p>
     <p v-if="weather.main?.temp_max">
-      Максимальная температура: {{ weather.main.temp_max.toFixed(0) }}℃
+      Максимальная температура: {{ weather.main.temp_max.toFixed(0) }}{{ temperatureUnit }}
     </p>
     <p v-if="weather.main?.humidity">Влажность воздуха: {{ weather.main.humidity.toFixed(0) }}%</p>
-    <p v-if="weather.wind?.speed">Скорость ветра до: {{ weather.wind.speed.toFixed(1) }} м/с</p>
+    <p v-if="weather.wind?.speed">
+      Скорость ветра до: {{ weather.wind.speed.toFixed(1) }} {{ windSpeedUnit }}
+    </p>
     <p v-if="weather.weather?.[0]?.description">
       Погодные условия: {{ weather.weather[0].description }}
     </p>
@@ -14,12 +20,22 @@
 </template>
 
 <script setup>
-defineProps({
+import { computed } from 'vue'
+
+const props = defineProps({
   weather: {
     type: Object,
     required: true,
   },
+  units: {
+    type: String,
+    default: 'metric',
+    validator: (value) => ['metric', 'imperial'].includes(value),
+  },
 })
+
+const temperatureUnit = computed(() => (props.units === 'metric' ? '℃' : '℉'))
+const windSpeedUnit = computed(() => (props.units === 'metric' ? 'м/с' : 'mph'))
 </script>
 
 <style scoped lang="scss">

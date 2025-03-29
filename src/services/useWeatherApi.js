@@ -73,9 +73,9 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
 
     // 1. Проверка кэша геолокации
     const cacheKey = `geolocation-${language.value}-${units.value}`
-    const cachedGeolocationData = getCachedGeolocationData(showNotification)
-    if (cachedGeolocationData) {
-      weatherData.value = cachedGeolocationData
+    const cachedData = getCachedGeolocationData(showNotification)
+    if (cachedData) {
+      weatherData.value = cachedData
       showNotification('Погода для вашего местоположения успешно загружена', 'success')
       isLoading.value = false
       return

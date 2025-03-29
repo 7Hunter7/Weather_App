@@ -59,11 +59,41 @@ export function useWeatherApi(showNotification) {
     getWeather(city)
   }
 
+  const getWeatherByGeolocation = async () => {
+    isLoading.value = true
+    error.value = ''
+    weatherData.value = null
+
+    try {
+      const position = await new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject)
+      })
+
+      const { latitude, longitude } = position.coords
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&lang=ru&appid=${apiKey}`
+
+      const response = await axios.get(url)
+      weatherData.value = response.data
+      cacheData('geolocation', response.data, showNotification) // Кэшируем под ключом 'geolocation'
+      showNotification(`Погода для вашего местоположения успешно загружена`, 'success')
+    } catch (err) {
+      let errorMessage = 'Не удалось определить ваше местоположение'
+      if (err.code === 1) {
+        errorMessage = 'Вы отклонили запрос на определение местоположения'
+      }
+      showNotification(errorMessage, 'error')
+      error.value = errorMessage
+    } finally {
+      isLoading.value = false
+    }
+  }
+
   return {
     weatherData,
     error,
     isLoading,
     getWeather,
     updateWeather,
+    getWeatherByGeolocation,
   }
 }

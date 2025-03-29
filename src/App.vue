@@ -21,8 +21,12 @@
     </button>
     <p class="wrapper__error">{{ error }}</p>
     <div v-if="isLoading" class="wrapper__loading">Загрузка...</div>
-    <button class="wrapper__button" @click="handleGetWeatherByGeolocation()">
-      Определить мое местоположение
+    <button
+      class="wrapper__button"
+      @click="handleGetWeatherByGeolocation()"
+      style="margin-top: 2rem"
+    >
+      Показать погоду в моём городе
     </button>
     <WeatherCard v-if="weatherData != null" :weather="weatherData" />
 

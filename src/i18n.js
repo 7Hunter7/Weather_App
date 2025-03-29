@@ -26,6 +26,15 @@ const messages = {
     directionSW: 'SW',
     directionW: 'W',
     directionNW: 'NW',
+    // Переводы для сообщений об ошибках
+    genericError: 'An error occurred while fetching data.',
+    cityNotFound: 'You entered an invalid city name! Check and try again.',
+    serverError: 'An error occurred: {status}',
+    networkError: 'Error sending the request. Check your internet connection.',
+    geolocationError: 'Failed to determine your location',
+    geolocationPermissionDenied: 'You rejected the request to determine your location',
+    weatherLoaded: 'Weather for «{city}» successfully loaded',
+    geolocationWeatherLoaded: 'Weather for your location successfully loaded from cache',
   },
   ru: {
     appTitle: 'Погодное приложение',
@@ -51,6 +60,14 @@ const messages = {
     directionSW: 'ЮЗ',
     directionW: 'З',
     directionNW: 'СЗ',
+    genericError: 'Произошла ошибка при получении данных!',
+    cityNotFound: 'Вы ввели неверное название города! Проверьте и попробуйте еще раз',
+    serverError: 'Произошла ошибка: {status}',
+    networkError: 'Ошибка при отправке запроса! Проверьте подключение к интернету',
+    geolocationError: 'Не удалось определить ваше местоположение',
+    geolocationPermissionDenied: 'Вы отклонили запрос на определение местоположения',
+    weatherLoaded: `Погода для города «{city}» успешно загружена`,
+    geolocationWeatherLoaded: 'Погода для вашего местоположения успешно загружена',
   },
 }
 

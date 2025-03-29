@@ -78,7 +78,7 @@ const messages = {
     networkError: 'Ошибка при отправке запроса! Проверьте подключение к интернету',
     geolocationError: 'Не удалось определить ваше местоположение',
     geolocationPermissionDenied: 'Вы отклонили запрос на определение местоположения',
-    weatherLoaded: `Погода для города «{city}» успешно загружена`,
+    weatherLoaded: 'Погода для города «{city}» успешно загружена',
     geolocationWeatherLoaded: 'Погода для вашего местоположения успешно загружена',
     cacheLoadError: 'Ошибка при загрузке данных из кэша: {error}',
     cacheSaveError: 'Ошибка при сохранении данных в кэш: {error}',

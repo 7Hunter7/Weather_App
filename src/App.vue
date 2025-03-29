@@ -34,7 +34,7 @@
     </button>
   </div>
 
-  <Notification
+  <system-notification
     v-if="notification.show"
     :message="notification.message"
     :type="notification.type"
@@ -42,9 +42,9 @@
 </template>
 
 <script setup>
-import { ref, computed, reactive } from 'vue'
+import { ref, computed } from 'vue'
 import WeatherCard from '@/components/WeatherCard.vue'
-import Notification from '@/components/Notification.vue'
+import SystemNotification from '@/components/SystemNotification.vue'
 import { useWeatherApi } from '@/services/useWeatherApi'
 
 const city = ref('')

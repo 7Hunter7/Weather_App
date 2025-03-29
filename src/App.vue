@@ -102,7 +102,8 @@ const handleGetWeather = () => {
 
 // Получение погоды по геопозиции пользователя
 const handleGetWeatherByGeolocation = () => {
-  removeCachedGeolocationData(showNotification)
+  const cacheKey = `geolocation-${language.value}-${units.value}`
+  removeCachedGeolocationData(showNotification, cacheKey)
   getWeatherByGeolocation()
   city.value = '' // Очистка поля ввода для города, чтобы не было конфликтов
 }

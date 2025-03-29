@@ -60,14 +60,16 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import WeatherCard from '@/components/WeatherCard.vue'
 import SystemNotification from '@/components/SystemNotification.vue'
 import { useWeatherApi } from '@/services/useWeatherApi'
-import { removeCachedGeolocationData } from '@/utils/cacheUtils'
+import { removeCachedCityData, removeCachedGeolocationData } from '@/utils/cacheUtils'
 
 const city = ref('')
 const cityName = computed(() => '«' + city.value + '»')
+const language = ref('ru')
+const units = ref('metric')
 const notification = ref({
   message: '',
   type: '',
@@ -79,15 +81,14 @@ const showNotification = (message, type = 'info') => {
   notification.value.message = message
   notification.value.type = type
   notification.value.show = true
-
   setTimeout(() => {
     notification.value.show = false
   }, 3000) // Автоматическое скрытие через 3 секунды
 }
 
-// Используем service useWeatherApi и передаем в неё showNotification
+// Используем service useWeatherApi и передаем в неё showNotification, language и units
 const { weatherData, error, isLoading, getWeather, getWeatherByGeolocation, updateWeather } =
-  useWeatherApi(showNotification)
+  useWeatherApi(showNotification, language, units)
 
 // Получение погоды
 const handleGetWeather = () => {
@@ -108,8 +109,12 @@ const handleGetWeatherByGeolocation = () => {
 
 // Обновление погоды
 const handleUpdateWeather = () => {
-  updateWeather(city.value) // Очистка кэша для введенного города
-  removeCachedGeolocationData(showNotification) // Очистка данных о геолокации
+  const cacheKey = `${city.value}-${language.value}-${units.value}`
+  // Очистка кэша
+  removeCachedCityData(cacheKey, showNotification)
+  removeCachedGeolocationData(showNotification)
+  // Обновление погоды
+  updateWeather(city.value)
   showNotification(`Погода для города «${city.value}» обновлена`, 'success')
 }
 
@@ -119,6 +124,12 @@ const clearInput = () => {
   error.value = ''
   weatherData.value = null
 }
+
+// Наблюдатели для сброса данных при смене языка или единиц измерения
+watch([language, units], () => {
+  weatherData.value = null
+  error.value = ''
+})
 </script>
 
 <style scoped lang="scss">

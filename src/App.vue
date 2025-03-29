@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="wrapper__header">
-      <h1>Погодное приложение</h1>
+      <h1>{{ $t('appTitle') }}</h1>
       <p>Узнать погоду в {{ city == '' ? 'вашем городе' : cityName }}</p>
     </div>
     <div class="wrapper__form">
@@ -9,7 +9,7 @@
         class="wrapper__form_input"
         type="text"
         v-model.trim="city"
-        placeholder="Введите название города"
+        :placeholder="$t('cityPlaceholder')"
         @keydown.enter="handleGetWeather()"
         @keydown.esc="clearInput()"
       />
@@ -18,12 +18,12 @@
         @click="handleGetWeather()"
         :class="{ 'wrapper__button--disabled': city === '' }"
       >
-        Узнать погоду
+        {{ $t('getWeather') }}
       </button>
 
       <select v-model="language" class="wrapper__form_select">
         <option value="ru">Русский</option>
-        <option value="en">Английский</option>
+        <option value="en">English</option>
       </select>
 
       <select v-model="units" class="wrapper__form_select">
@@ -38,7 +38,7 @@
       @click="handleGetWeatherByGeolocation()"
       style="margin-top: 2rem"
     >
-      Показать погоду в моём городе
+      {{ $t('detectLocation') }}
     </button>
     <WeatherCard v-if="weatherData != null" :weather="weatherData" :units="units" />
 
@@ -48,7 +48,7 @@
       class="wrapper__button"
       @click="handleUpdateWeather()"
     >
-      Обновить
+      {{ $t('update') }}
     </button>
   </div>
 
@@ -64,7 +64,10 @@ import { ref, computed, watch } from 'vue'
 import WeatherCard from '@/components/WeatherCard.vue'
 import SystemNotification from '@/components/SystemNotification.vue'
 import { useWeatherApi } from '@/services/useWeatherApi'
-import { removeCachedCityData, removeCachedGeolocationData } from '@/utils/cacheUtils'
+import { removeCachedGeolocationData, removeCachedCityData } from '@/utils/cacheUtils'
+import { useI18n } from 'vue-i18n'
+
+const { t, locale } = useI18n({ useScope: 'global' })
 
 const city = ref('')
 const cityName = computed(() => '«' + city.value + '»')
@@ -126,8 +129,14 @@ const clearInput = () => {
   weatherData.value = null
 }
 
-// Наблюдатели для сброса данных при смене языка или единиц измерения
-watch([language, units], () => {
+watch(language, (newLanguage) => {
+  locale.value = newLanguage // Установка языка
+  weatherData.value = null
+  error.value = ''
+})
+
+// Наблюдатель для сброса данных при смене языка или единиц измерения
+watch([units], () => {
   weatherData.value = null
   error.value = ''
 })

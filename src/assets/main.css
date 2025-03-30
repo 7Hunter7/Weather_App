@@ -50,6 +50,19 @@
   --indents-biggest: 2.5rem; /* 40px */
 }
 
+.light-theme {
+  --background-color: #f0f0f0;
+  --text-color: #333;
+  --input-color: #444;
+  --accent-color: #29abe2;
+  --border-color: #999;
+  --border-bottom-color: #ccc;
+  --error-color: #d03939;
+  --loading-color: #007bff;
+  --disabled-text-color: #666;
+  --disabled-background-color: #ddd;
+}
+
 * {
   margin: 0;
   padding: 0;

@@ -20,7 +20,7 @@
     </p>
     <p v-if="weather.wind?.deg">{{ $t('windDirection') }}: {{ windDirection }}</p>
     <p v-if="weather.rain?.['1h']">
-      {{ $t('precipitation') }}: {{ weather.rain['1h'].toFixed(1) }}{{ rainUnit }}
+      {{ $t('precipitation') }}: {{ weather.rain['1h'].toFixed(1) }}{{ $t('millimeterPerHour') }}
     </p>
     <p v-if="weather.main?.grnd_level">
       {{ $t('groundPressure') }}: {{ groundLevelPressureMmHg }} {{ grndLevelUnit }}
@@ -55,9 +55,9 @@ const temperatureUnit = computed(() => {
 const windSpeedUnit = computed(() => {
   return props.units === 'metric' ? t('metersPerSecond') : t('milesPerHour')
 })
-
-const rainUnit = computed(() => (props.units === 'metric' ? 'мм/ч' : 'mm/h'))
-const grndLevelUnit = computed(() => (props.units === 'metric' ? 'мм рт.ст.' : 'hPa'))
+const grndLevelUnit = computed(() =>
+  props.units === 'metric' ? t('millimetersOfMercury') : t('hectopascal'),
+)
 
 // Атмосферное давление
 const groundLevelPressureMmHg = computed(() => {

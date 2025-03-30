@@ -124,7 +124,7 @@ const handleUpdateWeather = () => {
   removeCachedGeolocationData(showNotification, t, cacheKey)
   // Обновление погоды
   updateWeather(city.value)
-  showNotification(t('weatherLoaded', { city: city.value }), 'success')
+  showNotification(t('weatherUpdated', { city: city.value }), 'success')
 }
 
 // Очистка данных

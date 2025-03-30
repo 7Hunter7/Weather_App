@@ -48,6 +48,8 @@
   --indents-medium: 1.25rem; /* 20px */
   --indents-big: 1.875rem; /* 30px */
   --indents-biggest: 2.5rem; /* 40px */
+
+  --icon-size: 6rem;
 }
 
 * {
@@ -108,9 +110,20 @@ body {
     --indents-medium: 1rem;
     --indents-big: 1.25rem;
     --indents-biggest: 1.5rem;
+    --icon-size: 4rem;
   }
   .theme-switcher {
     top: var(--indents-medium);
     right: var(--indents-medium);
+  }
+}
+@media (max-width: 480px) {
+  :root {
+    --icon-size: 3rem;
+  }
+}
+@media (max-width: 320px) {
+  :root {
+    --icon-size: 2rem;
   }
 }

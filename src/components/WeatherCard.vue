@@ -112,16 +112,15 @@ const windDirection = computed(() => {
   background-color: var(--background-color);
   border: 2px solid var(--border-color);
   border-radius: var(--border-radius-medium);
+  position: relative;
 
   &__weather {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--indents-small);
-
-    &-icon {
-      width: var(--indents-medium);
-      height: var(--indents-medium);
+    &_icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: var(--icon-size);
+      height: var(--icon-size);
       margin: 0 auto;
     }
   }

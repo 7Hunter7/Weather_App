@@ -110,7 +110,7 @@ body {
     --indents-biggest: 1.5rem;
   }
   .theme-switcher {
-    top: var(--indents-small);
-    right: var(--indents-small);
+    top: var(--indents-medium);
+    right: var(--indents-medium);
   }
 }

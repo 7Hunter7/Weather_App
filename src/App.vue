@@ -258,12 +258,16 @@ watch([units], () => {
 /* Адаптивность */
 @media (max-width: 768px) {
   .wrapper {
-    padding: var(--indents-small);
     border-radius: var(--border-radius-medium);
+
+    &__header {
+      max-width: 100%;
+      word-wrap: break-word;
+    }
 
     &__form {
       flex-direction: column;
-      gap: var(--indents-small);
+      gap: var(--indents-medium);
 
       &_input,
       &_select,

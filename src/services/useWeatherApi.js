@@ -99,6 +99,11 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
     }
   }
 
+  // Функция для получения URL иконки
+  const getWeatherIconUrl = (iconCode) => {
+    return `https://openweathermap.org/img/wn/${iconCode}@2x.png`
+  }
+
   return {
     weatherData,
     error,
@@ -106,5 +111,6 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
     getWeather,
     updateWeather,
     getWeatherByGeolocation,
+    getWeatherIconUrl,
   }
 }

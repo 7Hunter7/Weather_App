@@ -167,18 +167,17 @@ watch([units], () => {
     }
   }
   &__form {
+    margin: var(--indents-medium);
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    gap: 10px;
 
     &_input {
-      margin-top: var(--indents-big);
       padding: var(--indents-little) var(--indents-small);
       border: none;
       outline: none; // Удаляем обводку у input
-      border-bottom: 2px solid #110813;
+      border-bottom: 2px solid var(--border-bottom-color);
       background: transparent;
       color: var(--input-color);
       font-size: var(--font-size-input);
@@ -189,7 +188,6 @@ watch([units], () => {
     }
 
     &_select {
-      margin-top: var(--indents-big);
       padding: var(--indents-little) var(--indents-small);
       border: 2px solid var(--border-color);
       border-radius: var(--border-radius-small);

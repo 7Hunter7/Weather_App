@@ -96,7 +96,7 @@ const showNotification = (message, type = 'info') => {
 
 // Используем service useWeatherApi и передаем в неё showNotification, language и units
 const { weatherData, error, isLoading, getWeather, getWeatherByGeolocation, updateWeather } =
-  useWeatherApi(showNotification, language, units)
+  useWeatherApi(showNotification, language.value, units.value, t)
 
 // Получение погоды
 const handleGetWeather = () => {
@@ -111,7 +111,7 @@ const handleGetWeather = () => {
 // Получение погоды по геопозиции пользователя
 const handleGetWeatherByGeolocation = () => {
   const cacheKey = `geolocation-${language.value}-${units.value}`
-  removeCachedGeolocationData(showNotification, cacheKey)
+  removeCachedGeolocationData(showNotification, t, cacheKey)
   getWeatherByGeolocation()
   city.value = '' // Очистка поля ввода для города, чтобы не было конфликтов
 }
@@ -120,11 +120,11 @@ const handleGetWeatherByGeolocation = () => {
 const handleUpdateWeather = () => {
   const cacheKey = `${city.value}-${language.value}-${units.value}`
   // Очистка кэша
-  removeCachedCityData(cacheKey, showNotification)
-  removeCachedGeolocationData(showNotification)
+  removeCachedCityData(city.value, showNotification, t)
+  removeCachedGeolocationData(showNotification, t, cacheKey)
   // Обновление погоды
   updateWeather(city.value)
-  showNotification(`Погода для города «${city.value}» обновлена`, 'success')
+  showNotification(t('weatherLoaded', { city: city.value }), 'success')
 }
 
 // Очистка данных

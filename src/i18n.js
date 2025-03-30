@@ -4,6 +4,8 @@ import { createI18n } from 'vue-i18n'
 const messages = {
   en: {
     appTitle: 'Weather App',
+    findWeather: 'Check the weather in',
+    yourCity: 'your city',
     cityPlaceholder: 'Enter city name',
     getWeather: 'Get Weather',
     detectLocation: 'Show weather in my city',
@@ -51,6 +53,8 @@ const messages = {
   },
   ru: {
     appTitle: 'Погодное приложение',
+    findWeather: 'Узнать погоду в',
+    yourCity: 'вашем городе',
     cityPlaceholder: 'Введите название города',
     getWeather: 'Узнать погоду',
     detectLocation: 'Показать погоду в моём городе',

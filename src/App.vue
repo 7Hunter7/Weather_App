@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="wrapper__header">
       <h1>{{ $t('appTitle') }}</h1>
-      <p>Узнать погоду в {{ city == '' ? 'вашем городе' : cityName }}</p>
+      <p>{{ $t('findWeather') }} {{ city == '' ? t('yourCity') : cityName }}</p>
     </div>
     <div class="wrapper__form">
       <input

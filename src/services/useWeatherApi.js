@@ -32,10 +32,15 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
     try {
       const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units.value}&lang=${language.value}&appid=${apiKey}`
       const response = await axios.get(url)
-      weatherData.value = response.data
+      weatherData.value = {
+        ...response.data,
+        iconUrl: response.data.weather?.[0]?.icon
+          ? getWeatherIconUrl(response.data.weather[0].icon)
+          : null,
+      }
 
       // 2. Сохранение данных в кэш
-      cacheCityData(cacheKey, response.data, showNotification)
+      cacheCityData(cacheKey, weatherData.value, showNotification)
 
       // 3. Обработка ошибок
     } catch (err) {
@@ -82,10 +87,15 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
       const { latitude, longitude } = position.coords
       const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${units.value}&lang=${language.value}&appid=${apiKey}`
       const response = await axios.get(url)
-      weatherData.value = response.data
+      weatherData.value = {
+        ...response.data,
+        iconUrl: response.data.weather?.[0]?.icon
+          ? getWeatherIconUrl(response.data.weather[0].icon)
+          : null,
+      }
 
       // 2. Кэширование данных геолокации
-      cacheGeolocationData(cacheKey, response.data, showNotification)
+      cacheGeolocationData(cacheKey, weatherData.value, showNotification)
       showNotification(t('geolocationWeatherLoaded'), 'success')
     } catch (err) {
       let errorMessage = t('geolocationError')
@@ -111,6 +121,5 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
     getWeather,
     updateWeather,
     getWeatherByGeolocation,
-    getWeatherIconUrl,
   }
 }

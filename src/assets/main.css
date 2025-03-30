@@ -109,4 +109,8 @@ body {
     --indents-big: 1.25rem;
     --indents-biggest: 1.5rem;
   }
+  .theme-switcher {
+    top: var(--indents-small);
+    right: var(--indents-small);
+  }
 }

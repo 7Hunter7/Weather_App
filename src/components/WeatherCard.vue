@@ -25,9 +25,15 @@
     <p v-if="weather.main?.grnd_level">
       {{ $t('groundPressure') }}: {{ groundLevelPressureMmHg }} {{ grndLevelUnit }}
     </p>
-    <p v-if="weather.weather?.[0]?.description">
-      {{ $t('weatherConditions') }}: {{ weather.weather[0].description }}
-    </p>
+    <div v-if="weather.weather?.[0]?.description" class="weather-card__weather">
+      <p>{{ $t('weatherConditions') }}: {{ weather.weather[0].description }}</p>
+      <img
+        v-if="weather.iconUrl"
+        :src="weather.iconUrl"
+        alt="Weather Icon"
+        class="weather-card__weather_icon"
+      />
+    </div>
   </div>
 </template>
 
@@ -106,5 +112,18 @@ const windDirection = computed(() => {
   background-color: var(--background-color);
   border: 2px solid var(--border-color);
   border-radius: var(--border-radius-medium);
+
+  &__weather {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--indents-small);
+
+    &-icon {
+      width: var(--indents-medium);
+      height: var(--indents-medium);
+      margin: 0 auto;
+    }
+  }
 }
 </style>

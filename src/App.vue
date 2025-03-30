@@ -101,7 +101,7 @@ const { weatherData, error, isLoading, getWeather, getWeatherByGeolocation, upda
 // Получение погоды
 const handleGetWeather = () => {
   if (city.value.trim().length < 2) {
-    error.value = 'Название города должно содержать более одного символа!'
+    error.value = t('cityNameError')
     weatherData.value = null
     return
   }

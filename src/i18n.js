@@ -31,6 +31,7 @@ const messages = {
     directionW: 'W',
     directionNW: 'NW',
     // Переводы для сообщений об ошибках
+    cityNameError: 'The name of the city must contain more than one character!',
     genericError: 'An error occurred while fetching data.',
     cityNotFound: 'You entered an invalid city name! Check and try again.',
     serverError: 'An error occurred: {status}',
@@ -72,6 +73,7 @@ const messages = {
     directionSW: 'ЮЗ',
     directionW: 'З',
     directionNW: 'СЗ',
+    cityNameError: 'Название города должно содержать более одного символа!',
     genericError: 'Произошла ошибка при получении данных!',
     cityNotFound: 'Вы ввели неверное название города! Проверьте и попробуйте еще раз',
     serverError: 'Произошла ошибка: {status}',

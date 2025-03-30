@@ -30,7 +30,7 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
     }
 
     try {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units.value}&lang=${language.value}&appid=${apiKey}`
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&lang=${language}&appid=${apiKey}`
       const response = await axios.get(url)
       weatherData.value = {
         ...response.data,
@@ -85,7 +85,7 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
       })
 
       const { latitude, longitude } = position.coords
-      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${units.value}&lang=${language.value}&appid=${apiKey}`
+      const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${units}&lang=${language}&appid=${apiKey}`
       const response = await axios.get(url)
       weatherData.value = {
         ...response.data,

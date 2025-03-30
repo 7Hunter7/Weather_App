@@ -272,11 +272,11 @@ watch([units], () => {
         width: 100%;
       }
     }
-  }
 
-  &-card {
-    margin: var(--indents-medium);
-    padding: var(--indents-small);
+    &-card {
+      margin: var(--indents-medium);
+      padding: var(--indents-small);
+    }
   }
 }
 </style>

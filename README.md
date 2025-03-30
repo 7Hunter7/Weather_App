@@ -32,16 +32,35 @@
 ## Структура проекта
 
 ```bash
-├── src/
-│ ├── components/
-│ │ └── WeatherCard.vue # Компонент для отображения информации о погоде
-│ ├── services/
-│ │ └── useWeatherApi.js # Service для работы с API OpenWeatherMap
-│ ├── utils/
-│ │ └── cacheUtils.js # Утилиты для работы с кэшем localStorage
-│ ├── App.vue # Главный компонент приложения
-│ └── ...
-├── ...
+├── .vscode/           # Конфигурация VS Code
+├── node_modules/      # Зависимости проекта
+├── public/            # Статические файлы
+│   └── favicon.ico
+├── src/               # Исходный код приложения
+│   ├── assets/        # Статические ресурсы (CSS, изображения)
+│   │   └── main.css   # Главный файл стилей
+│   ├── components/    # Vue компоненты
+│   │   ├── SystemNotification.vue
+│   │   └── WeatherCard.vue
+│   ├── services/      # Сервисы для работы с API
+│   │   └── useWeatherApi.js
+│   ├── utils/         # Утилиты
+│   │   └── cacheUtils.js
+│   ├── App.vue        # Главный компонент приложения
+│   ├── i18n.js        # Конфигурация i18n
+│   ├── main.js        # Точка входа
+├── .env               # Переменные окружения
+├── .gitattributes     # Атрибуты Git
+├── .gitignore         # Игнорируемые файлы Git
+├── index.html         # HTML страница
+├── LICENSE            # Лицензия
+├── package.json       # Информация о проекте и зависимости
+├── .editorconfig      # Конфигурация EditorConfig
+├── .prettierrc.json   # Конфигурация Prettier
+├── eslint.config.js   # Конфигурация ESLint
+├── package-lock.json  # Заблокированные версии зависимостей
+├── README.md          # Этот файл
+└── vite.config.js     # Конфигурация Vite
 ```
 
 ## Установка и запуск

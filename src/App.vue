@@ -254,4 +254,29 @@ watch([units], () => {
     z-index: 10;
   }
 }
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .wrapper {
+    padding: var(--indents-small);
+    border-radius: var(--border-radius-medium);
+
+    &__form {
+      flex-direction: column;
+      gap: var(--indents-small);
+
+      &_input,
+      &_select,
+      &__button {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+  }
+
+  &-card {
+    margin: var(--indents-medium);
+    padding: var(--indents-small);
+  }
+}
 </style>

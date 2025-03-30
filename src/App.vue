@@ -1,7 +1,10 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" :class="{ 'light-theme': isLightTheme }">
     <div class="wrapper__header">
       <h1>{{ $t('appTitle') }}</h1>
+      <button @click="toggleTheme" class="theme-switcher">
+        {{ isLightTheme ? 'Dark' : 'Light' }}
+      </button>
       <p>{{ $t('findWeather') }} {{ city == '' ? t('yourCity') : cityName }}</p>
     </div>
     <div class="wrapper__form">
@@ -83,6 +86,12 @@ const notification = ref({
   type: '',
   show: false,
 })
+
+// Логика переключения тем
+const isLightTheme = ref(false)
+const toggleTheme = () => {
+  isLightTheme.value = !isLightTheme.value
+}
 
 // Управление уведомлениями
 const showNotification = (message, type = 'info') => {

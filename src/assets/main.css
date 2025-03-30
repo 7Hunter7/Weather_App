@@ -100,3 +100,13 @@ body {
   border-radius: var(--border-radius-small);
   transition: transform 0.2s ease;
 }
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  :root {
+    --wrapper-min-width: 90%;
+    --indents-medium: 1rem;
+    --indents-big: 1.25rem;
+    --indents-biggest: 1.5rem;
+  }
+}

@@ -83,7 +83,14 @@ body {
   --disabled-background-color: #ddd;
 }
 
+.wrapper {
+  position: relative;
+}
 .theme-switcher {
+  position: absolute;
+  top: var(--indents-biggest);
+  right: var(--indents-biggest);
+  z-index: 10;
   cursor: pointer;
   margin-left: var(--indents-medium);
   padding: var(--indents-small) var(--indents-medium);

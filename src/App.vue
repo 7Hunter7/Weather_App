@@ -169,10 +169,10 @@ watch([units], () => {
 
   &__header {
     & h1 {
-      margin-top: var(--indents-biggest);
+      margin-top: var(--indents-medium);
     }
     & p {
-      margin-top: var(--indents-medium);
+      margin-top: var(--indents-small);
     }
   }
   &__form {

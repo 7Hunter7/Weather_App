@@ -91,19 +91,23 @@ const isLightTheme = ref(false)
 const toggleTheme = () => {
   isLightTheme.value = !isLightTheme.value
   const bodyEl = document.querySelector(`body`)
-  const weatherCard = document.querySelector(`.weather-card`)
+  const weatherCard = document.querySelector(`.weather-card`) || null
   if (isLightTheme.value) {
     bodyEl.style.background =
       'linear-gradient(339deg, rgba(110, 156, 246, 1) 0%, rgba(255, 255, 255, 1) 100%)'
-    weatherCard.style.background =
-      'linear-gradient(339deg, rgba(110, 156, 246, 1) 0%, rgba(255, 255, 255, 1) 100%)'
-    weatherCard.style.border = 'none'
-  } else if (!isLightTheme.value) {
+    if (weatherCard) {
+      weatherCard.style.background =
+        'linear-gradient(339deg, rgba(110, 156, 246, 1) 0%, rgba(255, 255, 255, 1) 100%)'
+      weatherCard.style.border = 'none'
+    }
+  } else {
     bodyEl.style.background =
       'linear-gradient(194deg, rgba(10,18,56,1) 0%, rgba(171,107,194,1) 100%)'
-    weatherCard.style.background =
-      'linear-gradient(194deg, rgba(10,18,56,1) 0%, rgba(171,107,194,1) 100%)'
-    weatherCard.style.border = '#7a00a1'
+    if (weatherCard) {
+      weatherCard.style.background =
+        'linear-gradient(194deg, rgba(10,18,56,1) 0%, rgba(171,107,194,1) 100%)'
+      weatherCard.style.border = '#7a00a1'
+    }
   }
 }
 

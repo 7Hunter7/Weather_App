@@ -52,18 +52,17 @@
   --icon-size: 6rem;
 
   /* Стили для ThemeSwitcher */
-  --switch-width: 8.125rem; /* 130px */
-  --switch-height: 3.125rem; /* 50px */
-  --switch-border-radius: 1.5625rem; /* 25px */
+  --switch-width: 6rem;
+  --switch-height: 2.6rem;
+  --switch-border-radius: 1.5rem;
 
-  --checkbox-size: 2.875rem; /* 46px */
-  --checkbox-width: 4.6875rem; /* 75px */
-  --checkbox-translate: translateX(5rem); /* 80px */
-  --checkbox-indent: 0.125rem; /* 2px */
-
-  --sun-size: 0.9375rem; /* 15px */
-  --sun-top: 0.3125rem; /* 5px */
-  --sun-transform-origin: 3.3125rem 0.625rem; /* 53px, 10px */
+  --checkbox-size: 2.3rem;
+  --checkbox-width: 3.5rem;
+  --checkbox-translate: translateX(3.5rem);
+  --checkbox-indent: 0.125rem;
+  --sun-size: 0.8rem;
+  --sun-top: 0.2rem;
+  --sun-transform-origin: 2.5rem 0.625rem; /* Луна */
 
   --sun-color-primary: #f5deb4;
   --sun-color-secondary: #efd3a3;
@@ -126,6 +125,18 @@ body {
     --indents-big: 1.25rem;
     --indents-biggest: 1.5rem;
     --icon-size: 4rem;
+
+    /* Стили для ThemeSwitcher */
+    --switch-width: 4rem;
+    --switch-height: 1.8rem;
+    --switch-border-radius: 1rem;
+    --checkbox-size: 1.5rem;
+    --checkbox-width: 2rem;
+    --checkbox-translate: translateX(2.25rem);
+    --checkbox-indent: 0.125rem;
+    --sun-size: 0.6rem;
+    --sun-top: 0.125rem;
+    --sun-transform-origin: 1.65rem 0.45rem;
   }
   .theme-switcher {
     top: var(--indents-medium);

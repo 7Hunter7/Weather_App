@@ -208,7 +208,6 @@ watch([units], () => {
 
   &__button {
     cursor: pointer;
-    margin-left: var(--indents-medium);
     padding: var(--indents-small) var(--indents-medium);
     color: var(--background-color);
     background-color: var(--accent-color);
@@ -257,6 +256,12 @@ watch([units], () => {
 /* Адаптивность */
 @media (max-width: 768px) {
   .wrapper {
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     border-radius: var(--border-radius-medium);
 
     &__header {
@@ -265,20 +270,29 @@ watch([units], () => {
     }
 
     &__form {
+      max-width: 100vw;
       flex-direction: column;
       gap: var(--indents-medium);
 
       &_input,
-      &_select,
-      &__button {
+      &_select {
         margin-left: 0;
         width: 100%;
       }
+      .wrapper__button {
+        width: 100%;
+      }
     }
+  }
+}
 
-    &-card {
-      margin: var(--indents-medium);
-      padding: var(--indents-small);
+@media (max-width: 480px) {
+  .wrapper {
+    margin: var(--indents-small);
+    padding: var(--indents-small);
+
+    &__button {
+      width: 90%;
     }
   }
 }

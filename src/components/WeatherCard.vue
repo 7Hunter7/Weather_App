@@ -125,4 +125,12 @@ const windDirection = computed(() => {
     }
   }
 }
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .weather-card {
+    margin: var(--indents-medium);
+    padding: var(--indents-small);
+  }
+}
 </style>

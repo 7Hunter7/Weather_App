@@ -118,14 +118,8 @@ body {
 }
 
 /* Адаптивность */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   :root {
-    --wrapper-min-width: 90%;
-    --indents-medium: 1rem;
-    --indents-big: 1.25rem;
-    --indents-biggest: 1.5rem;
-    --icon-size: 4rem;
-
     /* Стили для ThemeSwitcher */
     --switch-width: 4rem;
     --switch-height: 1.8rem;
@@ -137,6 +131,26 @@ body {
     --sun-size: 0.6rem;
     --sun-top: 0.125rem;
     --sun-transform-origin: 1.65rem 0.45rem;
+  }
+}
+@media (max-width: 768px) {
+  :root {
+    --wrapper-min-width: 90%;
+    --indents-medium: 1rem;
+    --indents-big: 1.25rem;
+    --indents-biggest: 1.5rem;
+    --icon-size: 4rem;
+
+    /* Стили для ThemeSwitcher */
+    --switch-width: 3.5rem;
+    --switch-height: 1.5rem;
+    --checkbox-size: 1.25rem;
+    --checkbox-width: 1.8rem;
+    --checkbox-translate: translateX(2rem);
+
+    --sun-size: 0.5rem;
+    --sun-top: 0.1rem;
+    --sun-transform-origin: 1.45rem 0.4rem;
   }
   .theme-switcher {
     top: var(--indents-medium);

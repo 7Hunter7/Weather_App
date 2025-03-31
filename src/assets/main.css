@@ -50,6 +50,30 @@
   --indents-biggest: 2.5rem; /* 40px */
 
   --icon-size: 6rem;
+
+  /* Стили для ThemeSwitcher */
+  --switch-width: 8.125rem; /* 130px */
+  --switch-height: 3.125rem; /* 50px */
+  --switch-border-radius: 1.5625rem; /* 25px */
+
+  --checkbox-size: 2.875rem; /* 46px */
+  --checkbox-width: 4.6875rem; /* 75px */
+  --checkbox-translate: translateX(5rem); /* 80px */
+  --checkbox-indent: 0.125rem; /* 2px */
+
+  --sun-size: 0.9375rem; /* 15px */
+  --sun-top: 0.3125rem; /* 5px */
+  --sun-transform-origin: 3.3125rem 0.625rem; /* 53px, 10px */
+
+  --sun-color-primary: #f5deb4;
+  --sun-color-secondary: #efd3a3;
+  --sun-background-color: #f5daaa;
+  --sun-filter-blur: blur(0.0625rem); /* 1px */
+
+  --box-shadow-sun: 0.3125rem -0.0625rem 0px var(--white-color); /* 5px -1px 0px */
+  --box-shadow-sun-full:
+    0px 0px 0.625rem var(--sun-color-primary), 0px 0px 1.25rem var(--sun-color-primary),
+    0px 0px 1.875rem var(--sun-color-primary), inset 0px 0px 0.125rem var(--sun-color-secondary);
 }
 
 * {

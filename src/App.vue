@@ -93,8 +93,10 @@ const toggleTheme = () => {
   const bodyEl = document.querySelector(`body`)
   const weatherCard = document.querySelector(`.weather-card`)
   if (isLightTheme.value) {
-    bodyEl.style.background = `linear-gradient(339deg, rgba(110, 156, 246, 1) 0%, rgba(255, 255, 255, 1) 100%)`
-    weatherCard.style.background = `linear-gradient(339deg, rgba(110, 156, 246, 1) 0%, rgba(255, 255, 255, 1) 100%)`
+    bodyEl.style.background =
+      'linear-gradient(339deg, rgba(110, 156, 246, 1) 0%, rgba(255, 255, 255, 1) 100%)'
+    weatherCard.style.background =
+      'linear-gradient(339deg, rgba(110, 156, 246, 1) 0%, rgba(255, 255, 255, 1) 100%)'
     weatherCard.style.border = 'none'
   } else if (!isLightTheme.value) {
     bodyEl.style.background =

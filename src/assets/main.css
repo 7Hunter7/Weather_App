@@ -5,15 +5,15 @@
   --white-color: #fff;
   --black-color: #000;
   --background-color: #1f0f24;
-  --text-color: rgb(40, 200, 150);
+  --text-color: #e7d4ed;
   --input-color: #fcfcfc;
-  --accent-color: #e3bc4b;
-  --border-color: #b99935;
+  --accent-color: linear-gradient(329deg, rgba(10, 18, 56, 1) 0%, rgba(207, 73, 251, 1) 100%);
+  --border-color: #7a00a1;
   --border-bottom-color: #110813;
   --error-color: #d03939;
   --loading-color: #6e2d7d;
   --disabled-text-color: #fff;
-  --disabled-background-color: #9c7216;
+  --disabled-background-color: #1f0f24;
 
   --font-family-primary: 'Oswald', sans-serif;
   --font-size-base: 16px; /* 1rem */
@@ -92,15 +92,15 @@ body {
   font-optical-sizing: auto;
   font-style: normal;
   color: var(--text-color); /* Для глобального цвета текста */
-  background: linear-gradient(339deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+  background: var(--accent-color);
 }
 
 .light-theme {
   --background-color: #f0f0f0;
   --text-color: #333;
   --input-color: #444;
-  --accent-color: #29abe2;
-  --border-color: #999;
+  --accent-color: linear-gradient(339deg, rgba(110, 156, 246, 1) 0%, rgba(255, 255, 255, 1) 100%);
+  --border-color: rgba(110, 156, 246);
   --border-bottom-color: #ccc;
   --error-color: #d03939;
   --loading-color: #007bff;

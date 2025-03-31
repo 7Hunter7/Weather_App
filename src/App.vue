@@ -90,6 +90,19 @@ const notification = ref({
 const isLightTheme = ref(false)
 const toggleTheme = () => {
   isLightTheme.value = !isLightTheme.value
+  const bodyEl = document.querySelector(`body`)
+  const weatherCard = document.querySelector(`.weather-card`)
+  if (isLightTheme.value) {
+    bodyEl.style.background = `linear-gradient(339deg, rgba(110, 156, 246, 1) 0%, rgba(255, 255, 255, 1) 100%)`
+    weatherCard.style.background = `linear-gradient(339deg, rgba(110, 156, 246, 1) 0%, rgba(255, 255, 255, 1) 100%)`
+    weatherCard.style.border = 'none'
+  } else if (!isLightTheme.value) {
+    bodyEl.style.background =
+      'linear-gradient(194deg, rgba(10,18,56,1) 0%, rgba(171,107,194,1) 100%)'
+    weatherCard.style.background =
+      'linear-gradient(194deg, rgba(10,18,56,1) 0%, rgba(171,107,194,1) 100%)'
+    weatherCard.style.border = '#7a00a1'
+  }
 }
 
 // Управление уведомлениями
@@ -209,9 +222,9 @@ watch([units], () => {
   &__button {
     cursor: pointer;
     padding: var(--indents-small) var(--indents-medium);
-    color: var(--background-color);
-    background-color: var(--accent-color);
-    border: 2px solid var(--border-color);
+    color: var(--white-color);
+    background: var(--accent-color);
+    border: 2px solid var(--accent-color);
     border-radius: var(--border-radius-small);
     transition: transform 0.2s ease;
 

@@ -103,13 +103,14 @@ const windDirection = computed(() => {
 
 <style scoped lang="scss">
 .weather-card {
-  margin: var(--indents-biggest);
+  margin-top: var(--indents-biggest);
+  margin-bottom: var(--indents-biggest);
   padding: var(--indents-medium);
   display: flex;
   flex-direction: column;
   gap: var(--indents-small);
   color: var(--text-color);
-  background-color: var(--background-color);
+  background-color: var(--accent-color);
   border: 2px solid var(--border-color);
   border-radius: var(--border-radius-medium);
   position: relative;
@@ -129,7 +130,8 @@ const windDirection = computed(() => {
 /* Адаптивность */
 @media (max-width: 768px) {
   .weather-card {
-    margin: var(--indents-medium);
+    margin-top: var(--indents-medium);
+    margin-bottom: var(--indents-medium);
     padding: var(--indents-small);
   }
 }

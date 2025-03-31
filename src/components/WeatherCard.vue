@@ -51,7 +51,7 @@ const props = defineProps({
   units: {
     type: String,
     default: 'metric',
-    validator: (value) => ['metric', 'imperial'].includes(value),
+    validator: (value) => ['metric', 'empirical'].includes(value),
   },
 })
 
@@ -70,7 +70,7 @@ const groundLevelPressureMmHg = computed(() => {
   const grndLevel = props.weather.main?.grnd_level
   if (grndLevel) {
     let pressureHPa = null
-    if (props.units === 'imperial') {
+    if (props.units === 'empirical') {
       pressureHPa = grndLevel // Давление в гектопаскалях
     } else {
       pressureHPa = (grndLevel * 0.750062).toFixed(1) // Давление в мм рт. ст.

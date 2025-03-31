@@ -28,8 +28,8 @@
       </select>
 
       <select v-model="units" class="wrapper__form_select">
-        <option value="metric">Цельсий (°C)</option>
-        <option value="imperial">Фаренгейт (°F)</option>
+        <option value="metric">{{ $t('unitMetric') }}</option>
+        <option value="empirical">{{ $t('unitEmpirical') }}</option>
       </select>
     </div>
     <p class="wrapper__error">{{ error }}</p>

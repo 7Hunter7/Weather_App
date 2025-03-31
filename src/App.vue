@@ -224,7 +224,7 @@ watch([units], () => {
   &__button {
     cursor: pointer;
     padding: var(--indents-small) var(--indents-medium);
-    color: var(--white-color);
+    color: var(--text-color);
     background: var(--accent-color);
     border: 2px solid var(--accent-color);
     border-radius: var(--border-radius-small);

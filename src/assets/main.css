@@ -6,7 +6,7 @@
   --black-color: #000;
   --background-color: #1f0f24;
   --text-color: #e7d4ed;
-  --input-color: #fcfcfc;
+  --input-color: rgba(200, 75, 250);
   --accent-color: linear-gradient(329deg, rgba(10, 18, 56, 1) 0%, rgba(207, 73, 251, 1) 100%);
   --border-color: #7a00a1;
   --border-bottom-color: #110813;
@@ -97,8 +97,8 @@ body {
 
 .light-theme {
   --background-color: #f0f0f0;
-  --text-color: #333;
-  --input-color: #444;
+  --text-color: #000;
+  --input-color: rgb(0, 70, 250);
   --accent-color: linear-gradient(339deg, rgba(110, 156, 246, 1) 0%, rgba(255, 255, 255, 1) 100%);
   --border-color: rgba(110, 156, 246);
   --border-bottom-color: #ccc;

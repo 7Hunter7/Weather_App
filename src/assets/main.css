@@ -92,15 +92,6 @@ body {
   position: absolute;
   top: var(--indents-biggest);
   right: var(--indents-biggest);
-  z-index: 10;
-  cursor: pointer;
-  margin-left: var(--indents-medium);
-  padding: var(--indents-small) var(--indents-medium);
-  color: var(--background-color);
-  background-color: var(--accent-color);
-  border: 2px solid var(--border-color);
-  border-radius: var(--border-radius-small);
-  transition: transform 0.2s ease;
 }
 
 /* Адаптивность */

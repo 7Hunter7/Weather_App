@@ -2,9 +2,7 @@
   <div class="wrapper" :class="{ 'light-theme': isLightTheme }">
     <div class="wrapper__header">
       <h1>{{ $t('appTitle') }}</h1>
-      <button @click="toggleTheme" class="theme-switcher">
-        {{ isLightTheme ? 'Dark' : 'Light' }}
-      </button>
+      <theme-switcher @click="toggleTheme" class="theme-switcher" />
       <p>{{ $t('findWeather') }} {{ city == '' ? t('yourCity') : cityName }}</p>
     </div>
     <div class="wrapper__form">
@@ -70,6 +68,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import WeatherCard from '@/components/WeatherCard.vue'
+import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
 import SystemNotification from '@/components/SystemNotification.vue'
 import { useWeatherApi } from '@/services/useWeatherApi'
 import { removeCachedGeolocationData, removeCachedCityData } from '@/utils/cacheUtils'

@@ -6,56 +6,33 @@
       <p>{{ $t('findWeather') }} {{ city == '' ? t('yourCity') : cityName }}</p>
     </div>
     <div class="wrapper__form">
-      <input
-        class="wrapper__form_input"
-        type="text"
-        v-model.trim="city"
-        :placeholder="$t('cityPlaceholder')"
-        @keydown.enter="handleGetWeather()"
-        @keydown.esc="clearInput()"
+      <InputWithValidation
+        v-model="city"
+        :errorMessage="error"
+        @get-weather="handleGetWeather()"
+        @clear-input="clearInput()"
       />
-      <button
-        class="wrapper__button"
-        @click="handleGetWeather()"
-        :class="{ 'wrapper__button--disabled': city === '' }"
-      >
-        {{ $t('getWeather') }}
-      </button>
-
-      <select v-model="language" class="wrapper__form_select">
-        <option value="ru">Русский</option>
-        <option value="en">English</option>
-      </select>
-
-      <select v-model="units" class="wrapper__form_select">
-        <option value="metric">{{ $t('unitMetric') }}</option>
-        <option value="empirical">{{ $t('unitEmpirical') }}</option>
-      </select>
+      <LanguageUnitSelect
+        :language="language"
+        :units="units"
+        @update:language="setLanguage"
+        @update:units="setUnits"
+      />
     </div>
-    <p class="wrapper__error">{{ error }}</p>
+    <ButtonsGetWeather
+      :isCityEmpty="city === ''"
+      :isWeatherDataAvailable="weatherData != null"
+      @get-weather="handleGetWeather()"
+      @get-weather-by-geolocation="handleGetWeatherByGeolocation()"
+      @update-weather="handleUpdateWeather()"
+    />
     <div v-if="isLoading" class="wrapper__loading">Загрузка...</div>
-    <button
-      class="wrapper__button"
-      @click="handleGetWeatherByGeolocation()"
-      style="margin-top: 2rem"
-    >
-      {{ $t('detectLocation') }}
-    </button>
     <WeatherCard
       v-if="weatherData != null"
       :weather="weatherData"
       :units="units"
       :language="language"
     />
-
-    <!-- Кнопка для очистки кэша и обновления данных -->
-    <button
-      v-if="weatherData != null && city != ''"
-      class="wrapper__button"
-      @click="handleUpdateWeather()"
-    >
-      {{ $t('update') }}
-    </button>
   </div>
 
   <system-notification
@@ -70,6 +47,9 @@ import { ref, computed, watch } from 'vue'
 import WeatherCard from '@/components/WeatherCard.vue'
 import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
 import SystemNotification from '@/components/SystemNotification.vue'
+import InputWithValidation from '@/components/InputWithValidation.vue'
+import ButtonsGetWeather from '@/components/ButtonsGetWeather.vue'
+import LanguageUnitSelect from '@/components/LanguageUnitSelect.vue'
 import { useWeatherApi } from '@/services/useWeatherApi'
 import { removeCachedGeolocationData, removeCachedCityData } from '@/utils/cacheUtils'
 import { useI18n } from 'vue-i18n'
@@ -136,10 +116,19 @@ const handleGetWeather = () => {
 }
 
 // Получение погоды по геопозиции пользователя
-const handleGetWeatherByGeolocation = () => {
+const handleGetWeatherByGeolocation = async () => {
   const cacheKey = `geolocation-${language.value}-${units.value}`
   removeCachedGeolocationData(showNotification, t, cacheKey)
-  getWeatherByGeolocation()
+  const cityGeo = await getWeatherByGeolocation()
+
+  if (cityGeo) {
+    // Отображаем уведомление с названием города
+    showNotification(
+      t('geolocationWeatherLoadedCity', { city: cityGeo.name ? cityGeo.name : t('yourCity') }),
+      'success',
+    )
+  }
+
   city.value = '' // Очистка поля ввода для города, чтобы не было конфликтов
 }
 
@@ -161,11 +150,20 @@ const clearInput = () => {
   weatherData.value = null
 }
 
-watch(language, (newLanguage) => {
-  locale.value = newLanguage // Установка языка
+// Установка выбранного языка
+const setLanguage = (value) => {
+  language.value = value
+  locale.value = value
   weatherData.value = null
   error.value = ''
-})
+}
+
+// Установка выбранных единиц измерения
+const setUnits = (value) => {
+  units.value = value
+  weatherData.value = null
+  error.value = ''
+}
 
 // Наблюдатель для сброса данных при смене языка или единиц измерения
 watch([units], () => {
@@ -192,6 +190,7 @@ watch([units], () => {
       margin-top: var(--indents-small);
     }
   }
+
   &__form {
     margin: var(--indents-medium);
     display: flex;

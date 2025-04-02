@@ -66,4 +66,15 @@ defineEmits(['get-weather', 'get-weather-by-geolocation', 'update-weather'])
     background-color: var(--disabled-background-color);
   }
 }
+/* Адаптивность */
+@media (max-width: 768px) {
+  .button {
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  .button {
+    width: 90%;
+  }
+}
 </style>

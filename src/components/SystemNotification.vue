@@ -23,10 +23,11 @@ defineProps({
   position: fixed;
   top: var(--indents-medium);
   right: var(--indents-medium);
-  padding: 1rem 1.5rem;
+  padding: var(--indents-small) var(--indents-medium);
   color: var(--text-color);
   border-radius: var(--border-radius-small);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 var(--indents-little) var(--indents-small) rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
   z-index: 100;
 
   &.info {

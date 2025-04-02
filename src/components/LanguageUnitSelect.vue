@@ -59,4 +59,12 @@ defineEmits(['update:language', 'update:units'])
   outline: none;
   cursor: pointer;
 }
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .select {
+    margin-left: 0;
+    width: 100%;
+  }
+}
 </style>

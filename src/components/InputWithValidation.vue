@@ -47,4 +47,12 @@ defineEmits(['update:modelValue', 'get-weather', 'clear-input'])
   margin-top: var(--indents-medium);
   color: var(--error-color);
 }
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .input {
+    margin-left: 0;
+    width: 100%;
+  }
+}
 </style>

@@ -183,7 +183,6 @@ watch([units], () => {
   background-color: var(--background-color);
   text-align: center;
   color: var(--text-color);
-  position: relative;
 
   &__header {
     & h1 {
@@ -199,57 +198,6 @@ watch([units], () => {
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-
-    &_input {
-      padding: var(--indents-little) var(--indents-small);
-      border: none;
-      outline: none; // Удаляем обводку у input
-      border-bottom: 2px solid var(--border-bottom-color);
-      background: transparent;
-      color: var(--input-color);
-      font-size: var(--font-size-input);
-
-      &:focus {
-        border-bottom-color: var(--loading-color);
-      }
-    }
-
-    &_select {
-      padding: var(--indents-little) var(--indents-small);
-      border: 2px solid var(--border-color);
-      border-radius: var(--border-radius-small);
-      background-color: var(--background-color);
-      color: var(--text-color);
-      outline: none;
-      cursor: pointer;
-    }
-  }
-
-  &__button {
-    cursor: pointer;
-    padding: var(--indents-small) var(--indents-medium);
-    color: var(--text-color);
-    background: var(--accent-color);
-    border: 2px solid var(--accent-color);
-    border-radius: var(--border-radius-small);
-    transition: transform 0.2s ease;
-
-    &:hover {
-      transform: translateY(-2px);
-    }
-    &:active {
-      transform: translateY(-2px) scale(0.97);
-    }
-    &--disabled {
-      cursor: not-allowed;
-      color: var(--disabled-text-color);
-      background-color: var(--disabled-background-color);
-    }
-  }
-
-  &__error {
-    margin-top: var(--indents-medium);
-    color: var(--error-color);
   }
 
   // Стиль для индикатора загрузки
@@ -257,18 +205,6 @@ watch([units], () => {
     margin-top: var(--indents-medium);
     font-style: italic;
     color: var(--loading-color);
-  }
-
-  &__notification {
-    position: absolute;
-    top: var(--indents-medium);
-    right: var(--indents-medium);
-    background-color: transparent;
-    color: var(--text-color);
-    padding: var(--indents-small) var(--indents-medium);
-    border-radius: var(--border-radius-small);
-    opacity: 0.9;
-    z-index: 10;
   }
 }
 
@@ -289,18 +225,9 @@ watch([units], () => {
     }
 
     &__form {
-      max-width: 100vw;
+      max-width: 100%;
       flex-direction: column;
       gap: var(--indents-medium);
-
-      &_input,
-      &_select {
-        margin-left: 0;
-        width: 100%;
-      }
-      .wrapper__button {
-        width: 100%;
-      }
     }
   }
 }
@@ -309,10 +236,6 @@ watch([units], () => {
   .wrapper {
     margin: var(--indents-small);
     padding: var(--indents-small);
-
-    &__button {
-      width: 90%;
-    }
   }
 }
 </style>

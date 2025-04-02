@@ -81,12 +81,10 @@ const toggleTheme = () => {
       weatherCard.style.border = 'none'
     }
   } else {
-    bodyEl.style.background =
-      'linear-gradient(194deg, rgba(10,18,56,1) 0%, rgba(171,107,194,1) 100%)'
+    bodyEl.style.background = 'initial'
     if (weatherCard) {
-      weatherCard.style.background =
-        'linear-gradient(194deg, rgba(10,18,56,1) 0%, rgba(171,107,194,1) 100%)'
-      weatherCard.style.border = '#7a00a1'
+      weatherCard.style.background = 'initial'
+      weatherCard.style.border = 'initial'
     }
   }
 }

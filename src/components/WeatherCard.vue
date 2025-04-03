@@ -129,7 +129,6 @@ const windDirection = computed(() => {
 @media (max-width: 768px) {
   .weather-card {
     margin-top: var(--indents-medium);
-    margin-bottom: var(--indents-medium);
     padding: var(--indents-small);
   }
 }

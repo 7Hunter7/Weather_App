@@ -2,7 +2,7 @@
   <div class="wrapper" :class="{ 'light-theme': isLightTheme }">
     <!-- Иконка справки -->
     <div class="wrapper__help">
-      <img src="" alt="Help" @click="showHelp = true" />
+      <img src="/public/help-icon.png" alt="Help" @click="showHelp = true" />
     </div>
     <!-- Диалог справки -->
     <div v-if="showHelp" class="wrapper__help_dialog">
@@ -239,6 +239,7 @@ watch([units], () => {
     cursor: pointer;
 
     img {
+      background: transparent;
       width: var(--indents-medium);
       height: var(--indents-medium);
     }

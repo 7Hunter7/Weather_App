@@ -55,6 +55,9 @@ const messages = {
     cacheSaveError: 'Error saving data to cache: {error}',
     cacheDeleteError: 'Error deleting data from cache: {error}',
     cacheParseError: 'Error parsing data from cache: {error}',
+    helpTitle: 'Helper',
+    close: 'Close',
+    helpLoadingError: 'Error uploading the help file!',
   },
   ru: {
     appTitle: 'Weather App',
@@ -109,6 +112,9 @@ const messages = {
     cacheSaveError: 'Ошибка сохранения данных в кэш: {error}',
     cacheDeleteError: 'Ошибка удаления данных из кэша: {error}',
     cacheParseError: 'Ошибка разбора данных из кэша: {error}',
+    helpTitle: 'Справка',
+    close: 'Закрыть',
+    helpLoadingError: 'Ошибка загрузки файла справки!',
   },
 }
 

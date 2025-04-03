@@ -18,9 +18,12 @@
     <p v-if="weather.wind?.gust">
       {{ $t('windGust') }}: {{ weather.wind.gust.toFixed(1) }} {{ windSpeedUnit }}
     </p>
-    <p v-if="weather.wind?.deg">{{ $t('windDirection') }}: {{ windDirection }}</p>
+    <p v-if="weather.wind?.deg">{{ $t('windDirection') }}: {{ windDirection || $t('noWind') }}</p>
     <p v-if="weather.rain?.['1h']">
       {{ $t('precipitation') }}: {{ weather.rain['1h'].toFixed(1) }}{{ $t('millimeterPerHour') }}
+    </p>
+    <p v-if="weather.rain?.['3h']">
+      {{ $t('precipitation') }}: {{ weather.rain['3h'].toFixed(1) }}{{ $t('millimeterPerHour') }}
     </p>
     <p v-if="weather.main?.grnd_level">
       {{ $t('groundPressure') }}: {{ groundLevelPressureMmHg }} {{ grndLevelUnit }}

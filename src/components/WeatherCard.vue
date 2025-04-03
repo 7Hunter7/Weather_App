@@ -104,14 +104,12 @@ const windDirection = computed(() => {
 <style scoped lang="scss">
 .weather-card {
   margin-top: var(--indents-biggest);
-  margin-bottom: var(--indents-biggest);
   padding: var(--indents-medium);
   display: flex;
   flex-direction: column;
   gap: var(--indents-small);
   color: var(--text-color);
-  background-color: var(--accent-color);
-  border: 2px solid var(--border-color);
+  background: var(--accent-color);
   border-radius: var(--border-radius-medium);
   position: relative;
 

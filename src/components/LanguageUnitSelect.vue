@@ -52,7 +52,7 @@ defineEmits(['update:language', 'update:units'])
 
 .select {
   padding: var(--indents-little) var(--indents-small);
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius-small);
   background-color: var(--background-color);
   color: var(--text-color);

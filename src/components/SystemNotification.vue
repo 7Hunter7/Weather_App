@@ -21,8 +21,9 @@ defineProps({
 <style scoped lang="scss">
 .notification {
   position: fixed;
-  top: var(--indents-medium);
-  right: var(--indents-medium);
+  top: 0;
+  right: 0;
+  margin: var(--indents-medium);
   padding: var(--indents-small) var(--indents-medium);
   color: var(--text-color);
   border-radius: var(--border-radius-small);
@@ -52,6 +53,23 @@ defineProps({
     background-color: var(--notification-error-bg);
     color: var(--notification-error-text);
     border: 1px solid var(--notification-error-border);
+  }
+}
+
+/* Адаптивность */
+@media (max-width: 480px) {
+  .notification {
+    margin: var(--indents-small);
+  }
+}
+
+@media (max-width: 320px) {
+  .notification {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: var(--indents-little);
   }
 }
 </style>

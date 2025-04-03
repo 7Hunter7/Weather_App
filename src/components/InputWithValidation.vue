@@ -33,7 +33,7 @@ defineEmits(['update:modelValue', 'get-weather', 'clear-input'])
   padding: var(--indents-little) var(--indents-small);
   border: none;
   outline: none; /* Удаляем обводку у input */
-  border-bottom: 2px solid var(--border-bottom-color);
+  border-bottom: 1px solid var(--border-bottom-color);
   background: transparent;
   color: var(--input-color);
   font-size: var(--font-size-input);

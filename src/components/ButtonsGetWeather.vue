@@ -7,7 +7,7 @@
     >
       {{ $t('getWeather') }}
     </button>
-    <button class="button" @click="$emit('get-weather-by-geolocation')" style="margin-top: 2rem">
+    <button class="button" @click="$emit('get-weather-by-geolocation')">
       {{ $t('detectLocation') }}
     </button>
     <button
@@ -38,9 +38,10 @@ defineEmits(['get-weather', 'get-weather-by-geolocation', 'update-weather'])
 <style scoped lang="scss">
 .buttons {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  gap: var(--indents-medium);
 }
 
 .button {
@@ -76,6 +77,10 @@ defineEmits(['get-weather', 'get-weather-by-geolocation', 'update-weather'])
 }
 /* Адаптивность */
 @media (max-width: 768px) {
+  .buttons {
+    flex-direction: column;
+  }
+
   .button {
     width: 100%;
   }

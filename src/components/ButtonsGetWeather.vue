@@ -47,20 +47,32 @@ defineEmits(['get-weather', 'get-weather-by-geolocation', 'update-weather'])
 .button {
   cursor: pointer;
   padding: var(--indents-small) var(--indents-medium);
-  background-color: transparent;
+  background: none;
   color: var(--text-color);
   border: 1px solid var(--border-color);
   outline: none;
   border-radius: var(--border-radius-small);
-  transition:
-    background-color 0.3s ease,
-    border-color 0.3s ease,
-    transform 0.2s ease;
+  transition: all 0.3s ease;
+
+  &::after {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 0;
+    width: 0;
+    content: '';
+    z-index: -1;
+    border-radius: var(--border-radius-small);
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+  }
 
   &:hover {
     transform: translateY(-2px);
-    background: var(--accent-color);
-    border-color: var(--accent-color);
+    &::after {
+      height: 100%;
+      width: 100%;
+    }
   }
 
   &:active {

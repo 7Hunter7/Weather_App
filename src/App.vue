@@ -56,6 +56,7 @@
 </template>
 
 <script setup>
+import MarkdownIt from 'markdown-it'
 import { ref, computed, watch, onMounted } from 'vue'
 import WeatherCard from '@/components/WeatherCard.vue'
 import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
@@ -81,12 +82,14 @@ const notification = ref({
 
 // Справка
 const showHelp = ref(false)
+const md = new MarkdownIt()
 const helpContent = ref('')
 
 onMounted(async () => {
   try {
     const response = await fetch('/help.md')
-    helpContent.value = await response.text()
+    const markdownText = await response.text()
+    helpContent.value = md.render(markdownText)
   } catch (error) {
     console.error('Ошибка загрузки справки:', error)
     helpContent.value = 'Ошибка загрузки файла справки!'

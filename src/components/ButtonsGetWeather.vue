@@ -46,7 +46,7 @@ defineEmits(['get-weather', 'get-weather-by-geolocation', 'update-weather'])
 .button {
   cursor: pointer;
   padding: var(--indents-small) var(--indents-medium);
-  background: var(--background-color);
+  background-color: transparent;
   color: var(--text-color);
   border: 1px solid var(--border-color);
   outline: none;

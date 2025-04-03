@@ -78,14 +78,13 @@ const toggleTheme = () => {
     if (weatherCard) {
       weatherCard.style.background =
         'linear-gradient(339deg, rgba(110, 156, 246, 1) 0%, rgba(255, 255, 255, 1) 100%)'
-      weatherCard.style.border = 'none'
     }
   } else {
     bodyEl.style.background =
       'linear-gradient(329deg, rgba(10, 18, 56, 1) 0%, rgba(207, 73, 251, 1) 100%)'
     if (weatherCard) {
-      weatherCard.style.background = 'unset'
-      weatherCard.style.border = 'unset'
+      weatherCard.style.background =
+        'linear-gradient(329deg, rgba(10, 18, 56, 1) 0%, rgba(207, 73, 251, 1) 100%)'
     }
   }
 }

@@ -12,8 +12,8 @@
   --border-bottom-color: #110813;
   --error-color: #d03939;
   --loading-color: #6e2d7d;
-  --disabled-text-color: #fff;
-  --disabled-background-color: #1f0f24;
+  --disabled-text-color: #aaa7a7;
+  --disabled-background-color: #36293a;
 
   --font-family-primary: 'Oswald', sans-serif;
   --font-size-base: 16px; /* 1rem */

@@ -1,5 +1,18 @@
 <template>
   <div class="wrapper" :class="{ 'light-theme': isLightTheme }">
+    <!-- Иконка справки -->
+    <div class="wrapper__help">
+      <img src="" alt="Help" @click="showHelp = true" />
+    </div>
+    <!-- Диалог справки -->
+    <div v-if="showHelp" class="wrapper__help_dialog">
+      <div class="wrapper__help_dialog-content">
+        <h2>{{ $t('helpTitle') }}</h2>
+        <div v-html="helpContent"></div>
+        <button @click="showHelp = false">{{ $t('close') }}</button>
+      </div>
+    </div>
+
     <div class="wrapper__header">
       <h1>{{ $t('appTitle') }}</h1>
       <theme-switcher @click="toggleTheme" class="theme-switcher" />
@@ -43,7 +56,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import WeatherCard from '@/components/WeatherCard.vue'
 import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
 import SystemNotification from '@/components/SystemNotification.vue'
@@ -64,6 +77,20 @@ const notification = ref({
   message: '',
   type: '',
   show: false,
+})
+
+// Справка
+const showHelp = ref(false)
+const helpContent = ref('')
+
+onMounted(async () => {
+  try {
+    const response = await fetch('/help.md')
+    helpContent.value = await response.text()
+  } catch (error) {
+    console.error('Ошибка загрузки справки:', error)
+    helpContent.value = 'Ошибка загрузки файла справки!'
+  }
 })
 
 // Логика переключения тем
@@ -202,6 +229,41 @@ watch([units], () => {
     margin-top: var(--indents-medium);
     font-style: italic;
     color: var(--loading-color);
+  }
+
+  // Стили для справки
+  &__help {
+    position: absolute;
+    top: var(--indents-small);
+    right: var(--indents-small);
+    cursor: pointer;
+
+    img {
+      width: var(--indents-medium);
+      height: var(--indents-medium);
+    }
+
+    &_dialog {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+
+      &-content {
+        background-color: var(--white-color);
+        padding: var(--indents-medium);
+        border-radius: var(--border-radius-small);
+        width: 80%;
+        max-width: var(--wrapper-min-width);
+      }
+    }
   }
 }
 

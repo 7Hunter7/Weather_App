@@ -172,66 +172,71 @@ defineEmits(['close'])
 
 /* Общие стили для справки */
 .help-page {
-  padding: var(--indents-small) var(--indents-small);
+  padding: var(--indents-medium);
   text-align: left;
   font-size: var(--font-size-input);
   color: var(--text-color);
   background-color: var(--background-color);
+  border-radius: var(--border-radius-medium);
   max-height: 80vh;
   max-width: 90vh;
   overflow-y: auto;
-}
 
-/* Скрываем полосу прокрутки для WebKit-based браузеров */
-.help-page::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-/* Скрываем трек (дорожку) полосы прокрутки */
-.help-page::-webkit-scrollbar-track {
-  background: transparent;
-}
-/* Скрываем ползунок (thumb) полосы прокрутки */
-.help-page::-webkit-scrollbar-thumb {
-  background: transparent;
-}
+  /* Скрываем полосу прокрутки для WebKit-based браузеров */
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+  /* Скрываем трек (дорожку) полосы прокрутки */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  /* Скрываем ползунок (thumb) полосы прокрутки */
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
 
-.help-page h2 {
-  font-size: var(--font-size-base);
-  text-align: center;
-  margin-bottom: 0.5rem;
-  color: var(--text-color);
-}
+  & h2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+  }
 
-.help-page h3 {
-  font-size: var(--font-size-input);
-  text-align: center;
-  margin: var(--indents-small) 0;
-  color: var(--text-color);
-}
+  & h3 {
+    font-size: var(--font-size-base);
+    text-align: center;
+    margin: var(--indents-small) 0;
+    color: var(--text-color);
+  }
 
-.help-page ul,
-.help-page ol {
-  margin-left: var(--indents-medium);
-  margin-bottom: var(--indents-small);
-}
+  & ul,
+  & ol {
+    margin-left: var(--indents-medium);
+    margin-bottom: var(--indents-small);
+  }
 
-.help-page li {
-  margin-bottom: var(--indents-little);
-}
+  & li {
+    margin-bottom: var(--indents-little);
+  }
 
-.help-page a {
-  color: var(--input-color);
-  text-decoration: none;
-}
+  & a {
+    color: var(--input-color);
+    text-decoration: none;
+  }
 
-.help-page a:hover {
-  text-decoration: underline;
-}
+  & a:hover {
+    text-decoration: underline;
+  }
 
-.help-page code {
-  background-color: var(--background-color, 0.8);
-  padding: var(--indents-little) var(--indents-small);
-  border-radius: var(--border-radius-small);
+  & code {
+    color: var(--input-color);
+    background-color: var(--background-color, 0.9);
+    padding: var(--indents-little) var(--indents-small);
+    border-radius: var(--border-radius-small);
+  }
 }
 </style>

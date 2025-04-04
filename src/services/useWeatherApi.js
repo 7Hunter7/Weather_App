@@ -16,7 +16,7 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
   const weatherData = ref(null)
   const error = ref('')
   const isLoading = ref(false) // Индикатор загрузки
-  const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY // Используем переменную окружения
+  const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY || '394763d2bf7ba78dbbad7d96b024e452' // Используем переменную окружения или пробный API_KEY
 
   const getWeather = async (city) => {
     // Сбрасываем данные перед новым запросом

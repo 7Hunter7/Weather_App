@@ -17,19 +17,19 @@ export function removeCachedGeolocationData(cacheKey, showNotification, t) {
 }
 
 // --- Город ---
-export function getCachedCityData(city, showNotification, t) {
-  return getCachedData(WEATHER_CACHE_KEY, showNotification, city, t)
+export function getCachedCityData(cacheKey, showNotification, t) {
+  return getCachedData(WEATHER_CACHE_KEY, showNotification, cacheKey, t)
 }
-export function cacheCityData(city, data, showNotification, t) {
-  cacheData(WEATHER_CACHE_KEY, data, showNotification, city, t)
+export function cacheCityData(cacheKey, data, showNotification, t) {
+  cacheData(WEATHER_CACHE_KEY, data, showNotification, cacheKey, t)
 }
-export function removeCachedCityData(city, showNotification, t) {
-  removeCachedData(WEATHER_CACHE_KEY, showNotification, city, t)
+export function removeCachedCityData(cacheKey, showNotification, t) {
+  removeCachedData(WEATHER_CACHE_KEY, showNotification, cacheKey, t)
 }
 
 // --- Общие функции ---
 // Функция получения данных из localStorage
-function getCachedData(cacheKey, showNotification, specificKey = null, t) {
+function getCachedData(cacheKey, showNotification, t, specificKey = null) {
   const cache = localStorage.getItem(cacheKey)
 
   if (!cache) {

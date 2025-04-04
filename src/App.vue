@@ -39,7 +39,7 @@
       @get-weather-by-geolocation="handleGetWeatherByGeolocation()"
       @update-weather="handleUpdateWeather()"
     />
-    <div v-if="isLoading" class="wrapper__loading">Загрузка...</div>
+    <LoadingAnimation v-if="isLoading" class="wrapper__loading" />
     <WeatherCard
       v-if="weatherData != null"
       :weather="weatherData"
@@ -47,7 +47,7 @@
       :language="language"
     />
   </div>
-
+  <!-- Уведомленя -->
   <system-notification
     v-if="notification.show"
     :message="notification.message"
@@ -63,6 +63,7 @@ import SystemNotification from '@/components/SystemNotification.vue'
 import InputWithValidation from '@/components/InputWithValidation.vue'
 import ButtonsGetWeather from '@/components/ButtonsGetWeather.vue'
 import LanguageUnitSelect from '@/components/LanguageUnitSelect.vue'
+import LoadingAnimation from '@/components/LoadingAnimation.vue'
 import { useWeatherApi } from '@/services/useWeatherApi'
 import { removeCachedGeolocationData, removeCachedCityData } from '@/utils/cacheUtils'
 import { useI18n } from 'vue-i18n'
@@ -230,11 +231,8 @@ const setUnits = (value) => {
     align-items: center;
   }
 
-  // Стиль для индикатора загрузки
   &__loading {
     margin-top: var(--indents-medium);
-    font-style: italic;
-    color: var(--loading-color);
   }
 
   // Стили для справки

@@ -5,13 +5,9 @@
       <img src="/help-icon.png" alt="Help" @click="showHelp = true" />
     </div>
     <!-- Диалог справки -->
-    <div v-if="showHelp" class="wrapper__help_dialog">
-      <div class="wrapper__help_dialog-content">
-        <h2>{{ $t('helpTitle') }}</h2>
-        <div v-html="helpContent"></div>
-        <button @click="showHelp = false">{{ $t('close') }}</button>
-      </div>
-    </div>
+    <HelpDialog v-if="showHelp" @close="showHelp = false">
+      <div v-html="helpContent"></div>
+    </HelpDialog>
 
     <div class="wrapper__header">
       <h1>{{ $t('appTitle') }}</h1>
@@ -64,10 +60,10 @@ import InputWithValidation from '@/components/InputWithValidation.vue'
 import ButtonsGetWeather from '@/components/ButtonsGetWeather.vue'
 import LanguageUnitSelect from '@/components/LanguageUnitSelect.vue'
 import LoadingAnimation from '@/components/LoadingAnimation.vue'
+import HelpDialog from '@/components/HelpDialog.vue'
 import { useWeatherApi } from '@/services/useWeatherApi'
 import { removeCachedGeolocationData, removeCachedCityData } from '@/utils/cacheUtils'
 import { useI18n } from 'vue-i18n'
-import MarkdownIt from 'markdown-it'
 
 const { t, locale } = useI18n({ useScope: 'global' })
 
@@ -83,18 +79,16 @@ const notification = ref({
 
 // Справка
 const showHelp = ref(false)
-const md = new MarkdownIt()
 const helpContent = ref('')
 
 onMounted(async () => {
   removeCachedData()
   try {
-    const response = await fetch('/help.md')
-    const markdownText = await response.text()
-    helpContent.value = md.render(markdownText)
+    const response = await fetch('/help.html')
+    helpContent.value = await response.text()
   } catch (error) {
     console.error('Ошибка загрузки справки:', error)
-    helpContent.value = 'Ошибка загрузки файла справки!'
+    helpContent.value = '<p>Ошибка загрузки файла справки!</p>'
   }
 })
 

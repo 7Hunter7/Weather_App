@@ -94,6 +94,7 @@ body {
   font-style: normal;
   color: var(--text-color); /* Для глобального цвета текста */
   background: var(--accent-color);
+  scroll-behavior: smooth;
 }
 
 .light-theme {

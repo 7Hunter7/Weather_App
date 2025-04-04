@@ -18,6 +18,7 @@ defineProps({
   modelValue: {
     type: String,
     required: true,
+    default: '',
   },
   errorMessage: {
     type: String,

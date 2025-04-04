@@ -34,10 +34,8 @@
         </g>
       </svg>
     </div>
-    <!-- Диалог справки -->
-    <HelpDialog v-if="showHelp" @close="showHelp = false">
-      <div v-html="helpContent"></div>
-    </HelpDialog>
+    <!-- Справка -->
+    <HelpDialog v-if="showHelp" @close="showHelp = false" />
 
     <div class="wrapper__header">
       <h1>{{ $t('appTitle') }}</h1>
@@ -101,6 +99,7 @@ const city = ref('')
 const cityName = computed(() => '«' + city.value + '»')
 const language = ref('ru')
 const units = ref('metric')
+const showHelp = ref(false)
 const notification = ref({
   message: '',
   type: '',

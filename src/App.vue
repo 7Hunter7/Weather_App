@@ -155,6 +155,8 @@ const handleGetWeatherByGeolocation = async () => {
       'success',
     )
     city.value = weather.name
+    weatherData.value = weather // Обновляем weatherData
+    error.value = '' // Очищаем ошибки
   } else {
     showNotification(t('geolocationError'), 'error')
   }

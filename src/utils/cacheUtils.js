@@ -7,10 +7,11 @@ const CACHE_EXPIRATION_TIME = 60 * 60 * 1000 // 1 час (в миллисеку�
 // Функции для работы с кэшем
 // --- Геолокация ---
 export function getCachedGeolocationData(showNotification, t) {
-  return getCachedData(GEOLOCATION_CACHE_KEY, showNotification, t)
+  const cachedData = getCachedData(GEOLOCATION_CACHE_KEY, showNotification, null, t)
+  return cachedData ? cachedData.data : null // Возвращаем только данные
 }
-export function cacheGeolocationData(data, showNotification, t) {
-  cacheData(GEOLOCATION_CACHE_KEY, data, showNotification, null, t)
+export function cacheGeolocationData(cacheKey, data, showNotification, t) {
+  cacheData(GEOLOCATION_CACHE_KEY, data, showNotification, cacheKey, t)
 }
 export function removeCachedGeolocationData(cacheKey, showNotification, t) {
   removeCachedData(GEOLOCATION_CACHE_KEY, showNotification, cacheKey, t)
@@ -31,7 +32,6 @@ export function removeCachedCityData(cacheKey, showNotification, t) {
 // Функция получения данных из localStorage
 function getCachedData(cacheKey, showNotification, t, specificKey = null) {
   const cache = localStorage.getItem(cacheKey)
-
   if (!cache) {
     return null
   }
@@ -66,7 +66,6 @@ function getCachedData(cacheKey, showNotification, t, specificKey = null) {
 function cacheData(cacheKey, data, showNotification, specificKey = null, t) {
   let cacheData = {}
   const cache = localStorage.getItem(cacheKey)
-
   if (cache) {
     try {
       cacheData = JSON.parse(cache)
@@ -77,7 +76,7 @@ function cacheData(cacheKey, data, showNotification, specificKey = null, t) {
   }
 
   let itemToCache = {
-    data,
+    data, // Сохраняем фактические данные о погоде
     expirationTime: Date.now() + CACHE_EXPIRATION_TIME,
   }
 

@@ -46,7 +46,7 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
 
       // 2. Сохранение данных в кэш
       cacheCityData(cacheKey, weatherData.value, showNotification, t)
-
+      showNotification(t('weatherLoaded', { city }), 'success')
       // 3. Обработка ошибок
     } catch (err) {
       let errorMessage = t('genericError') // Сообщение по умолчанию

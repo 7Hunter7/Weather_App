@@ -74,6 +74,8 @@ const city = ref('')
 const cityName = computed(() => '«' + city.value + '»')
 const language = ref('ru')
 const units = ref('metric')
+const cacheKeyForCity = `${city.value}-${language.value}-${units.value}`
+const cacheKeyForGeo = `geolocation-${language.value}-${units.value}`
 const notification = ref({
   message: '',
   type: '',
@@ -145,8 +147,7 @@ const handleGetWeather = () => {
 
 // Получение погоды по геопозиции пользователя
 const handleGetWeatherByGeolocation = async () => {
-  const cacheKey = `geolocation-${language.value}-${units.value}`
-  removeCachedGeolocationData(cacheKey, showNotification, t)
+  removeCachedGeolocationData(cacheKeyForGeo, showNotification, t)
   const weather = await getWeatherByGeolocation() // Получаем данные о погоде
   if (weather) {
     // Отображаем уведомление с названием города
@@ -162,10 +163,9 @@ const handleGetWeatherByGeolocation = async () => {
 
 // Обновление погоды
 const handleUpdateWeather = () => {
-  const cacheKey = `geolocation-${language.value}-${units.value}`
   // Очистка кэша
-  removeCachedCityData(city.value, showNotification, t)
-  removeCachedGeolocationData(cacheKey, showNotification, t)
+  removeCachedCityData(cacheKeyForCity, showNotification, t)
+  removeCachedGeolocationData(cacheKeyForGeo, showNotification, t)
   // Обновление погоды
   updateWeather(city.value)
   showNotification(t('weatherUpdated', { city: city.value }), 'success')
@@ -182,9 +182,9 @@ const clearInput = () => {
 const setLanguage = (value) => {
   language.value = value
   locale.value = value
-  const cacheKey = `geolocation-${language.value}-${units.value}`
-  removeCachedCityData(city.value, showNotification, t)
-  removeCachedGeolocationData(cacheKey, showNotification, t)
+  // Очистка кэша
+  removeCachedCityData(cacheKeyForCity, showNotification, t)
+  removeCachedGeolocationData(cacheKeyForGeo, showNotification, t)
   weatherData.value = null
   error.value = ''
 }
@@ -192,7 +192,7 @@ const setLanguage = (value) => {
 // Установка выбранных единиц измерения
 const setUnits = (value) => {
   units.value = value
-  weatherData.value = null
+  // weatherData.value = null
   error.value = ''
 }
 

@@ -232,7 +232,7 @@ const setUnits = (value) => {
   }
 
   &__loading {
-    margin-top: var(--indents-medium);
+    margin-top: var(--indents-big);
   }
 
   // Стили для справки

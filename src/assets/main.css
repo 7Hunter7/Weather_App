@@ -50,6 +50,7 @@
   --indents-biggest: 2.5rem; /* 40px */
 
   --icon-size: 6rem;
+  --loader-size: 3rem;
 
   /* Стили для ThemeSwitcher */
   --switch-width: 6rem;

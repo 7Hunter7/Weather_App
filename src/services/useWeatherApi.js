@@ -26,7 +26,7 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
 
     // 1. Проверка кэша
     const cacheKey = `${city}-${language}-${units}`
-    const cachedData = getCachedCityData(cacheKey, showNotification)
+    const cachedData = getCachedCityData(cacheKey, showNotification, t)
     if (cachedData) {
       showNotification(t('weatherLoaded', { city }), 'success')
       weatherData.value = cachedData
@@ -45,7 +45,7 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
       }
 
       // 2. Сохранение данных в кэш
-      cacheCityData(cacheKey, weatherData.value, showNotification)
+      cacheCityData(cacheKey, weatherData.value, showNotification, t)
 
       // 3. Обработка ошибок
     } catch (err) {
@@ -69,7 +69,7 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
 
   const updateWeather = (city) => {
     const cacheKey = `${city}-${language}-${units}`
-    removeCachedCityData(cacheKey, showNotification)
+    removeCachedCityData(cacheKey, showNotification, t)
     getWeather(city)
   }
 
@@ -81,10 +81,10 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
 
     // 1. Проверка кэша геолокации
     const cacheKey = `geolocation-${language}-${units}`
-    const cachedData = getCachedGeolocationData(showNotification)
+    const cachedData = getCachedGeolocationData(showNotification, t)
     if (cachedData) {
       weatherData.value = cachedData
-      return cachedData.name // Город
+      return cachedData.name // Город для уведомления
     }
 
     try {
@@ -104,8 +104,8 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
       }
 
       // 2. Кэширование данных геолокации
-      cacheGeolocationData(cacheKey, weatherData.value, showNotification)
-      return weatherData.value // Город
+      cacheGeolocationData(cacheKey, weatherData.value, showNotification, t)
+      return weatherData.value // Город для уведомления
     } catch (err) {
       let errorMessage = t('geolocationError')
       if (err.code === 1) {

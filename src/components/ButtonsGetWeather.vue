@@ -56,7 +56,7 @@
         </g>
       </svg>
     </button>
-    <button class="button geolocation-button" @click="$emit('get-weather-by-geolocation')">
+    <button class="button" @click="$emit('get-weather-by-geolocation')">
       {{ $t('detectLocation') }}
       <svg
         id="svg"
@@ -202,8 +202,7 @@ defineEmits(['get-weather', 'get-weather-by-geolocation', 'update-weather'])
     background-color: var(--disabled-background-color);
   }
 }
-.geolocation-button {
-}
+
 /* Адаптивность */
 @media (max-width: 768px) {
   .buttons {

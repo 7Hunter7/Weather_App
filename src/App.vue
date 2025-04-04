@@ -56,7 +56,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import WeatherCard from '@/components/WeatherCard.vue'
 import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
 import SystemNotification from '@/components/SystemNotification.vue'
@@ -193,25 +193,14 @@ const clearInput = () => {
 
 // Установка выбранного языка
 const setLanguage = (value) => {
-  removeCachedData()
   language.value = value
   locale.value = value
-  weatherData.value = null
-  error.value = ''
 }
 
 // Установка выбранных единиц измерения
 const setUnits = (value) => {
   units.value = value
-  weatherData.value = null
-  error.value = ''
 }
-
-// Наблюдатель для сброса данных при смене языка или единиц измерения
-watch([units], () => {
-  weatherData.value = null
-  error.value = ''
-})
 </script>
 
 <style scoped lang="scss">

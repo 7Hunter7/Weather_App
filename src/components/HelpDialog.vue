@@ -198,7 +198,7 @@ defineEmits(['close'])
 
   & h2 {
     position: fixed;
-    top: 0;
+    top: var(--indents-medium);
     left: 0;
     right: 0;
     text-align: center;

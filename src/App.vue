@@ -2,7 +2,7 @@
   <div class="wrapper" :class="{ 'light-theme': isLightTheme }">
     <!-- Иконка справки -->
     <div class="wrapper__help">
-      <img src="/public/help-icon.png" alt="Help" @click="showHelp = true" />
+      <img src="/help-icon.png" alt="Help" @click="showHelp = true" />
     </div>
     <!-- Диалог справки -->
     <div v-if="showHelp" class="wrapper__help_dialog">
@@ -56,7 +56,6 @@
 </template>
 
 <script setup>
-import MarkdownIt from 'markdown-it'
 import { ref, computed, watch, onMounted } from 'vue'
 import WeatherCard from '@/components/WeatherCard.vue'
 import ThemeSwitcher from '@/components/ThemeSwitcher.vue'
@@ -67,6 +66,7 @@ import LanguageUnitSelect from '@/components/LanguageUnitSelect.vue'
 import { useWeatherApi } from '@/services/useWeatherApi'
 import { removeCachedGeolocationData, removeCachedCityData } from '@/utils/cacheUtils'
 import { useI18n } from 'vue-i18n'
+import MarkdownIt from 'markdown-it'
 
 const { t, locale } = useI18n({ useScope: 'global' })
 
@@ -74,6 +74,8 @@ const city = ref('')
 const cityName = computed(() => '«' + city.value + '»')
 const language = ref('ru')
 const units = ref('metric')
+const cacheKey = `${city.value}-${language.value}-${units.value}`
+
 const notification = ref({
   message: '',
   type: '',
@@ -162,10 +164,9 @@ const handleGetWeatherByGeolocation = async () => {
 
 // Обновление погоды
 const handleUpdateWeather = () => {
-  const cacheKey = `${city.value}-${language.value}-${units.value}`
   // Очистка кэша
   removeCachedCityData(city.value, showNotification, t)
-  removeCachedGeolocationData(showNotification, t, cacheKey)
+  removeCachedGeolocationData(cacheKey, showNotification, t)
   // Обновление погоды
   updateWeather(city.value)
   showNotification(t('weatherUpdated', { city: city.value }), 'success')
@@ -182,6 +183,8 @@ const clearInput = () => {
 const setLanguage = (value) => {
   language.value = value
   locale.value = value
+  removeCachedCityData(city.value, showNotification, t)
+  removeCachedGeolocationData(cacheKey, showNotification, t)
   weatherData.value = null
   error.value = ''
 }

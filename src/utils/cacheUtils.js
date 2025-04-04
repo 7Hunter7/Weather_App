@@ -10,10 +10,10 @@ export function getCachedGeolocationData(showNotification, t) {
   return getCachedData(GEOLOCATION_CACHE_KEY, showNotification, t)
 }
 export function cacheGeolocationData(data, showNotification, t) {
-  cacheData(GEOLOCATION_CACHE_KEY, data, showNotification, t)
+  cacheData(GEOLOCATION_CACHE_KEY, data, showNotification, null, t)
 }
-export function removeCachedGeolocationData(showNotification, t, cacheKey) {
-  removeCachedData(GEOLOCATION_CACHE_KEY, showNotification, t, cacheKey)
+export function removeCachedGeolocationData(cacheKey, showNotification, t) {
+  removeCachedData(GEOLOCATION_CACHE_KEY, showNotification, cacheKey, t)
 }
 
 // --- Город ---
@@ -107,11 +107,6 @@ function removeCachedData(cacheKey, showNotification, specificKey = null, t) {
 
     if (specificKey) {
       delete cacheData[specificKey]
-      if (Object.keys(cacheData).length === 0) {
-        localStorage.removeItem(cacheKey)
-      } else {
-        localStorage.setItem(cacheKey, JSON.stringify(cacheData))
-      }
     } else {
       localStorage.removeItem(cacheKey)
     }

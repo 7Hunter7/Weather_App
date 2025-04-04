@@ -107,19 +107,8 @@ const notification = ref({
   show: false,
 })
 
-// Справка
-const showHelp = ref(false)
-const helpContent = ref('')
-
 onMounted(async () => {
   removeCachedData()
-  try {
-    const response = await fetch('/help.html')
-    helpContent.value = await response.text()
-  } catch (error) {
-    console.error('Ошибка загрузки справки:', error)
-    helpContent.value = '<p>Ошибка загрузки файла справки!</p>'
-  }
 })
 
 // Логика переключения тем

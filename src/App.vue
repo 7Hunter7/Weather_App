@@ -163,10 +163,15 @@ const handleGetWeatherByGeolocation = async () => {
 }
 
 // Обновление погоды
-const handleUpdateWeather = () => {
-  removeCachedData()
-  // Обновление погоды
-  updateWeather(city.value)
+const handleUpdateWeather = async () => {
+  if (city.value.trim() === '') {
+    // Обновляем данные о погоде по геолокации
+    handleGetWeatherByGeolocation()
+  } else {
+    // Обновляем данные о погоде по названию города
+    removeCachedData()
+    updateWeather(city.value)
+  }
   showNotification(t('weatherUpdated', { city: city.value }), 'success')
 }
 

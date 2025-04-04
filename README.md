@@ -4,7 +4,7 @@
 
 ## Демо
 
-- Проект развернут на Netlify: (ссылка на Netlify проект)
+- Проект развернут на Netlify: [https://my_weather.app](https://my-climate-control.netlify.app/)
 
 ## Особенности
 

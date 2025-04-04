@@ -84,7 +84,8 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
     const cachedData = getCachedGeolocationData(showNotification, t)
     if (cachedData) {
       weatherData.value = cachedData
-      return cachedData.name // Город для уведомления
+      isLoading.value = false
+      return weatherData.value
     }
 
     try {
@@ -105,7 +106,7 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
 
       // 2. Кэширование данных геолокации
       cacheGeolocationData(cacheKey, weatherData.value, showNotification, t)
-      return weatherData.value // Город для уведомления
+      return weatherData.value
     } catch (err) {
       let errorMessage = t('geolocationError')
       if (err.code === 1) {

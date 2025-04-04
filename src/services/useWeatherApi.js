@@ -90,7 +90,12 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
 
     try {
       const position = await new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject)
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          // Параметры запроса геолокации
+          enableHighAccuracy: true, //  Более точное определение местоположения
+          timeout: 5000, // 5 секунд - максимальное время ожидания ответа от геолокации
+          maximumAge: 300000, // 5 минут - максимальный возраст закэшированного местоположения
+        })
       })
 
       const { latitude, longitude } = position.coords
@@ -108,10 +113,23 @@ export function useWeatherApi(showNotification, language = 'ru', units = 'metric
       cacheGeolocationData(cacheKey, weatherData.value, showNotification, t)
       return weatherData.value
     } catch (err) {
-      let errorMessage = t('geolocationError')
-      if (err.code === 1) {
-        errorMessage = t('geolocationPermissionDenied')
+      let errorMessage = t('geolocationError') // Сообщение по умолчанию
+
+      switch (err.code) {
+        case 1: // PERMISSION_DENIED - Пользователь отклонил запрос на определение местоположения
+          errorMessage = t('geolocationPermissionDenied')
+          break
+        case 2: // POSITION_UNAVAILABLE - Не удалось определить местоположение устройства
+          errorMessage = t('geolocationPositionUnavailable')
+          break
+        case 3: // TIMEOUT - Время ожидания ответа от геолокации истекло
+          errorMessage = t('geolocationTimeout')
+          break
+        default:
+          errorMessage = t('geolocationGenericError', { message: err.message })
+          break
       }
+
       showNotification(errorMessage, 'error')
       error.value = errorMessage
     } finally {

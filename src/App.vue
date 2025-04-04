@@ -74,8 +74,7 @@ const city = ref('')
 const cityName = computed(() => '«' + city.value + '»')
 const language = ref('ru')
 const units = ref('metric')
-const cacheKey = `${city.value}-${language.value}-${units.value}`
-
+const cacheKey = `geolocation-${language.value}-${units.value}`
 const notification = ref({
   message: '',
   type: '',
@@ -147,18 +146,17 @@ const handleGetWeather = () => {
 
 // Получение погоды по геопозиции пользователя
 const handleGetWeatherByGeolocation = async () => {
-  const cacheKey = `geolocation-${language.value}-${units.value}`
-  removeCachedGeolocationData(showNotification, t, cacheKey)
-  const cityGeo = await getWeatherByGeolocation()
-
-  if (cityGeo) {
+  removeCachedGeolocationData(cacheKey, showNotification, t)
+  const weather = await getWeatherByGeolocation() // Получаем данные о погоде
+  if (weather) {
     // Отображаем уведомление с названием города
     showNotification(
-      t('geolocationWeatherLoadedCity', { city: cityGeo.name ? cityGeo.name : t('yourCity') }),
+      t('geolocationWeatherLoadedCity', { city: weather.name ? weather.name : t('yourCity') }),
       'success',
     )
+  } else {
+    showNotification(t('geolocationError'), 'error')
   }
-
   city.value = '' // Очистка поля ввода для города, чтобы не было конфликтов
 }
 

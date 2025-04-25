@@ -124,7 +124,8 @@ npm run dev
 
 ## Автор
 
-Ivan Kalugin Телеграмм: https://t.me/Ivan_Anatolievich_Kalugin
+Ivan Kalugin
+Телеграмм: https://t.me/Ivan_Anatolievich_Kalugin
 
 ## Лицензия
 
